@@ -1,0 +1,28 @@
+.logo-login{
+    width: 150px;
+    height: 150px;
+}
+.black{
+    color: black;
+}
+
+.foto-mahasiswa{
+    width: 200px;
+    height: 200px;
+}
+.foto-mahasiswa-detail{
+    height: 150px;
+    width: 150px;
+}
+.gambar-kartu-mahasiswa{
+    height: 300px;
+    width: 300px;
+}
+.foto-dosen{
+  height: 200px;
+  width: 200px;  
+}
+.foto-dosen-detail{
+    height: 160px;
+    width: 160px;
+}
