@@ -28,7 +28,7 @@ class Admin extends CI_Controller
     }
     public function tarif_komite(Type $var = null)
     {
-
+        $this->menu('admin/tarif_komite','a');
     }
     
 }

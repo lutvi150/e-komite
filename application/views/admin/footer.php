@@ -26,31 +26,26 @@
 <script src="<?=base_url();?>asset/uniform/jquery.uniform.min.js" type="text/javascript"></script>
 <script src="<?=base_url();?>asset/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
 <!-- END CORE PLUGINS -->
-<!-- BEGIN PAGE LEVEL PLUGINS -->
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/jquery.vmap.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/maps/jquery.vmap.russia.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/maps/jquery.vmap.europe.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/maps/jquery.vmap.germany.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/maps/jquery.vmap.usa.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jqvmap/jqvmap/data/jquery.vmap.sampledata.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/morris/morris.min.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/morris/raphael-min.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/jquery.sparkline.min.js" type="text/javascript"></script>
-<!-- END PAGE LEVEL PLUGINS -->
+
+
+<!-- table -->
+<script type="text/javascript" src="<?=base_url();?>asset/select2/select2.min.js"></script>
+<script type="text/javascript" src="<?=base_url();?>asset/datatables/media/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?=base_url();?>asset/datatables/extensions/TableTools/js/dataTables.tableTools.min.js"></script>
+<script type="text/javascript" src="<?=base_url();?>asset/datatables/extensions/ColReorder/js/dataTables.colReorder.min.js"></script>
+<script type="text/javascript" src="<?=base_url();?>asset/datatables/extensions/Scroller/js/dataTables.scroller.min.js"></script>
+<script type="text/javascript" src="<?=base_url();?>asset/datatables/plugins/bootstrap/dataTables.bootstrap.js"></script>
 <!-- BEGIN PAGE LEVEL SCRIPTS -->
 <script src="<?=base_url();?>asset/scripts/metronic.js" type="text/javascript"></script>
 <script src="<?=base_url();?>asset/admin/layout4/scripts/layout.js" type="text/javascript"></script>
 <script src="<?=base_url();?>asset/admin/layout4/scripts/demo.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/admin/pages/scripts/index3.js" type="text/javascript"></script>
-<script src="<?=base_url();?>asset/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="<?=base_url();?>asset/admin/pages/scripts/table-advanced.js"></script>
 <script>
 jQuery(document).ready(function() {    
-   Metronic.init(); // init metronic core componets
-   Layout.init(); // init layout
-   Demo.init(); // init demo features 
-    Index.init(); // init index page
- Tasks.initDashboardWidget(); // init tash dashboard widget  
+    Metronic.init(); // init metronic core components
+Layout.init(); // init current layout
+Demo.init(); // init demo features
+   TableAdvanced.init();
 });
 </script>
 </body>

@@ -17,15 +17,18 @@
 <link href="<?=base_url();?>asset/bootstrap-switch/css/bootstrap-switch.min.css" rel="stylesheet" type="text/css"/>
 <!-- END GLOBAL MANDATORY STYLES -->
 <!-- BEGIN PAGE LEVEL PLUGIN STYLES -->
+
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/select2/select2.css"/>
 <link href="<?=base_url();?>asset/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 <link href="<?=base_url();?>asset/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
-<!-- END PAGE STYLES -->
-<!-- BEGIN THEME STYLES -->
-<!-- DOC: To use 'rounded corners' style just load 'components-rounded.css' stylesheet instead of 'components.css' in the below style tag -->
+<!-- table -->
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/datatables/plugins/bootstrap/dataTables.bootstrap.css"/>
 <link href="<?=base_url();?>asset/css/components-rounded.css" id="style_components" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/css/plugins.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/admin/layout4/css/layout.css" rel="stylesheet" type="text/css"/>
