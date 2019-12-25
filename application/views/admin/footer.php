@@ -48,6 +48,11 @@ Demo.init(); // init demo features
    TableAdvanced.init();
 });
 </script>
+<script>
+    $('.tambah-tarif').click(function (e) { 
+        $('#tambah_tarif').modal('show');
+    });
+</script>
 </body>
 <!-- END BODY -->
 </html>

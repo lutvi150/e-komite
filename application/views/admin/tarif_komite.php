@@ -29,7 +29,7 @@
 			<div class="page-head">
 				<!-- BEGIN PAGE TITLE -->
 				<div class="page-title">
-					<h1>Advanced Datatables <small>advanced datatables</small></h1>
+					<h1>Data Tarif Komite Siswa SMA Negeri 1 Rambatan</h1>
 				</div>
 			</div>
 			<!-- END PAGE HEAD -->
@@ -57,8 +57,11 @@
 							</div>
 							<div class="tools">
 							</div>
-						</div>
+                        </div>
+                        
 						<div class="portlet-body">
+                            
+                            <a href="#" class="btn btn-success btn-sm tambah-tarif"><i class="fa fa-plus"></i>Tambah Tarif</a>
 							<table class="table table-striped table-bordered table-hover" id="sample_1">
 							<thead>
 							<tr>
@@ -97,4 +100,38 @@
 		</div>
 	</div>
     <!-- END CONTENT -->
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="tambah_tarif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="<?=base_url();?>admin/simpan_tarif_komite" method="post">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah tarif</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            <div class="modal-body">
+               <div class="form-group">
+                 <label for="">Golongan</label>
+                 <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                 <small id="helpId" class="text-muted"></small>
+               </div>
+               <div class="form-group">
+                 <label for="">Keterangan</label>
+                <textarea name="" class="form-control" id="" cols="30" rows="3"></textarea>
+                 <small id="helpId" class="text-muted">Tambah Keterangan tentang tarif</small>
+               </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+            </div>
+        </form>
+        </div>
+    </div>
 </div>

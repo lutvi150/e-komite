@@ -30,6 +30,10 @@ class Admin extends CI_Controller
     {
         $this->menu('admin/tarif_komite','a');
     }
+    public function simpan_tarif_komiter(Type $var = null)
+    {
+        # code...
+    }
     
 }
 
