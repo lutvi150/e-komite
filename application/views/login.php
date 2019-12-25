@@ -18,7 +18,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN HEAD -->
 <head>
 <meta charset="utf-8"/>
-<title>Metronic | Login Options - Login Form 4</title>
+<title>SMA NEGERI 1 RAMBATAN </title>
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8">
@@ -41,7 +41,9 @@ License: You must have a valid license purchased only from themeforest(the above
 <link id="style_color" href="<?=base_url();?>asset/admin/layout/css/themes/default.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- END THEME STYLES -->
-<link rel="shortcut icon" href="favicon.ico"/>
+<link rel="shortcut icon" href="<?=base_url();?>asset/images/tut_wuri_handayani.png"/>
+<link rel="stylesheet" href="<?=base_url();?>asset/css/costume.css">
+
 </head>
 <!-- END HEAD -->
 <!-- BEGIN BODY -->
@@ -49,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="index.html">
-	<img src="<?=base_url();?>asset/admin/layout4/img/logo-big.png" alt=""/>
+	<img class="logo-login" src="<?=base_url();?>asset/images/tut_wuri_handayani.png" alt=""/>
 	</a>
 </div>
 <!-- END LOGO -->
@@ -60,8 +62,21 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGIN -->
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
-	<form class="login-form" action="index.html" method="post">
-		<h3 class="form-title">Login Ke Sistem</h3>
+	<form class="login-form" action="<?=base_url();?>controller/verifikasi_login" method="post">
+		<h3 class="form-title text-center">SMA 1 NEGERI RAMBATAN</h3>
+		<?php if ($this->session->userdata('error')):?>
+						<div id="message_error" class="alert alert-danger alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-ban"></i> Maaf !</h4>
+							<?php echo $this->session->userdata('error');?>
+						</div>
+						<?php elseif ($this->session->userdata('success')):?>
+						<div id="message_success" class="alert alert-success alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+							<h4><i class="icon fa fa-check"></i> Success !</h4>
+							<?php echo $this->session->userdata('success');?>
+						</div>
+						<?php endif;?>
 		<div class="alert alert-danger display-hide">
 			<button class="close" data-close="alert"></button>
 			<span>
@@ -84,7 +99,7 @@ License: You must have a valid license purchased only from themeforest(the above
 		</div>
 		<div class="form-actions">
 			<label class="checkbox">
-			<input type="checkbox" name="remember" value="1"/> Remember me </label>
+			<!-- <input type="checkbox" name="remember" value="1"/> Remember me </label> -->
 			<button type="submit" class="btn blue pull-right">
 			Login <i class="m-icon-swapright m-icon-white"></i>
 			</button>
@@ -95,7 +110,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- END LOGIN -->
 <!-- BEGIN COPYRIGHT -->
 <div class="copyright">
-	 2014 &copy; Metronic - Admin Dashboard Template.
+	 2019 &copy; SMA 1 Negeri Rambatan.
 </div>
 <!-- END COPYRIGHT -->
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
@@ -140,6 +155,18 @@ Layout.init(); // init current layout
     }
     );
 });
+</script>
+<script>
+		window.setTimeout(function () {
+		$("#message_error").fadeTo(1000, 0).slideUp(500, function () {
+			$(this).remove();
+		});
+	}, 6000);
+	window.setTimeout(function () {
+		$("#message_success").fadeTo(1000, 0).slideUp(500, function () {
+			$(this).remove();
+		});
+	}, 6000);
 </script>
 <!-- END JAVASCRIPTS -->
 </body>
