@@ -60,6 +60,26 @@
 
 </script>
 <script>
+	$('.cetak-laporan-rutin').click(function (e) { 
+		$('#cetak_laporan').modal('show');
+	});
+	// tambah keseluruah
+	$('.tambah-keseluruhan').click(function (e) { 
+		$('#tambah_keseluruhan').modal('show');
+	});
+	// aktifkan user
+	$('.aktifkan-user').click(function (e) { 
+	let id=$(this).attr('data');
+	$('#judul_aktifkan').text('Konfirmasi');
+	$('#isi_aktifkan').text('Yakin akan aktifkan user ini ? Username User akan otomatis di buat berdasarkan NISN');
+	$('#form_aktifkan').attr('action',id);
+	$('#aktifkan_user').modal('show');
+	});
+// tambah siswa
+$('.tambah-siswa').click(function (e) { 
+	$("#form_siswa").attr('action','<?=base_url();?>admin/crud_siswa/simpan/i')
+	$('#tambah_siswa').modal('show');
+});
 	$('#tanggal_lahir').datepicker
 	({
 		format:'dd-mm-yyyy'

@@ -61,7 +61,7 @@
                         
 						<div class="portlet-body">
                             
-                            <a href="#" class="btn btn-success btn-sm tambah-tarif"><i class="fa fa-plus"></i>Tambah Siswa</a>
+                            <a href="#" class="btn btn-success btn-sm tambah-siswa"><i class="fa fa-plus"></i>Tambah Siswa</a>
                             <?php if ($this->session->userdata('error')):?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -104,8 +104,11 @@
                                    <td><?=$value['nama_siswa']?></td>
                                    <td><?=$value['nisn']?></td>
                                    <td>
-                                       <a href="#" class="label label-danger"><i class="fa fa-ban"></i>Tidak Aktif</a>
-                                       <a href="#" class="label label-success"><i class="fa fa-check"></i>Aktif</a>
+									   <?php if ($value['status_akun_user']=='0') :?>
+									   <a href="#" data="<?=base_url();?>admin/crud_siswa/aktifkan/<?=$value['nisn']?>" class="label label-danger aktifkan-user"><i class="fa fa-ban"></i>Tidak Aktif</a>
+									   <?php elseif ($value['status_akun_user']=='1') :?>
+									   <a href="#" class="label label-success nonaktifkan-user"><i class="fa fa-check"></i>Aktif</a>
+									   <?php endif; ?>
                                    </td>
                                    <td>
                                    <a href="#" data="<?=base_url();?>admin/crud_siswa/hapus/<?=$value['id_siswa']?>" class="btn btn-danger btn-sm modal-hapus" ><i class="fa fa-trash"></i></a>
@@ -129,10 +132,10 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="tambah_tarif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="tambah_siswa" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="<?=base_url();?>admin/simpan_data_siswa" enctype="multipart/form-data" method="post">
+            <form action="<?=base_url();?>admin/simpan_data_siswa" id="form_siswa" enctype="multipart/form-data" method="post">
             <div class="modal-header">
                 <h5 class="modal-title">Tambah Data Siswa</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -174,7 +177,12 @@
                 <label for="">Alamat</label>
               <textarea name="alamat" id="alamat" class="form-control" cols="30" rows="3" required></textarea>
                 <small id="helpId" class="text-muted"></small>
-              </div>
+			  </div>
+			  <div class="form-group">
+				<label for="">Nomor Kontak Orang Tua</label>
+				<input type="text" name="no_hp" id="no_hp" class="form-control" placeholder="" aria-describedby="helpId">
+				<small id="helpId" class="text-muted"></small>
+			  </div>
               <div class="form-group">
                 <label for="">Kelas</label>
               <select name="id_kelas" class="form-control"  id="id_kelas">
@@ -213,3 +221,27 @@
 
 <?php $this->load->view('admin/modal_hapus');
  ?>
+
+
+ <!-- Modal -->
+ <div class="modal fade" id="aktifkan_user" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	 <div class="modal-dialog" role="document">
+		 <div class="modal-content">
+			 <form action="" id="form_aktifkan" method="post">
+			 <div class="modal-header">
+				 <h5 class="modal-title" id="judul_aktifkan"></h5>
+					 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						 <span aria-hidden="true">&times;</span>
+					 </button>
+			 </div>
+			 <div class="modal-body">
+				 <div id="isi_aktifkan"></div>
+			 </div>
+			 <div class="modal-footer">
+				 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
+				 <button type="submit" class="btn btn-primary">Ya</button>
+			 </div>
+			 </form>
+		 </div>
+	 </div>
+ </div>

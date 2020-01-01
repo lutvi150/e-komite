@@ -46,7 +46,7 @@ class Controller extends CI_Controller
                 $this->session->set_userdata($ses_data);
                 if ($level == 'admin') {
                     redirect('admin');
-                } elseif ($level == 'agen') {
+                } elseif ($level == 'siswa') {
                     redirect('siswa');
                 }
             }

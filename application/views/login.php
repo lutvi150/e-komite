@@ -51,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="index.html">
-	<img class="logo-login" src="<?=base_url();?>asset/images/tut_wuri_handayani.png" alt=""/>
+	<img class="logo-login" src="<?=base_url();?>asset/images/4.jpg" alt=""/>
 	</a>
 </div>
 <!-- END LOGO -->
@@ -63,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
 	<form class="login-form" action="<?=base_url();?>controller/verifikasi_login" method="post">
-		<h3 class="form-title text-center">SMA 1 NEGERI RAMBATAN</h3>
+		<div  class="black"><h3 class=" text-center black">SMA 1 NEGERI RAMBATAN</h3></div>
 		<?php if ($this->session->userdata('error')):?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -145,10 +145,9 @@ Layout.init(); // init current layout
   Demo.init();
        // init background slide images
        $.backstretch([
-        "<?=base_url();?>asset/admin/pages/media/bg/1.jpg",
-        "<?=base_url();?>asset/admin/pages/media/bg/2.jpg",
-        "<?=base_url();?>asset/admin/pages/media/bg/3.jpg",
-        "<?=base_url();?>asset/admin/pages/media/bg/4.jpg"
+        "<?=base_url();?>asset/images/1.jpg",
+        "<?=base_url();?>asset/images/2.jpg",
+        "<?=base_url();?>asset/images/3.jpg"
         ], {
           fade: 1000,
           duration: 8000

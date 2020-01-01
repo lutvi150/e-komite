@@ -50,10 +50,38 @@
 				</li>
 				
 				<li>
-					<a href="<?=base_url();?>admin/data_siswa">
-					<i class="icon-rocket"></i>
-					<span class="title">Buku Besar</span>
+					<a href="javascript:;">
+					<i class="icon-basket"></i>
+					<span class="title">Keuangan</span>
+					<span class="arrow "></span>
 					</a>
+					<ul class="sub-menu">
+						<li>
+							<a href="<?=base_url();?>admin/sumbangan_rutin">
+							<i class="icon-home"></i>
+							Sumbangan Rutin</a>
+						</li>
+						<li>
+							<a href="<?=base_url();?>admin/sumbangan_isi">
+							<i class="icon-basket"></i>
+							Sumbangan Insidentil</a>
+						</li>
+						<li>
+							<a href="<?=base_url();?>admin/transaksi">
+							<i class="icon-tag"></i>
+							Transaksi</a>
+						</li>
+						<!-- <li>
+							<a href="ecommerce_products.html">
+							<i class="icon-handbag"></i>
+							Products</a>
+						</li>
+						<li>
+							<a href="ecommerce_products_edit.html">
+							<i class="icon-pencil"></i>
+							Product Edit</a>
+						</li> -->
+					</ul>
 				</li>
 			</ul>
 			<!-- END SIDEBAR MENU -->
