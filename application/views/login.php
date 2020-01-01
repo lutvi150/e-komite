@@ -51,7 +51,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <!-- BEGIN LOGO -->
 <div class="logo">
 	<a href="index.html">
-	<img class="logo-login" src="<?=base_url();?>asset/images/4.jpg" alt=""/>
+	<img class="logo-login" src="<?=base_url();?>asset/images/4.png" alt=""/>
 	</a>
 </div>
 <!-- END LOGO -->
