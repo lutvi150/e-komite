@@ -29,19 +29,26 @@
 					<span class="title">Tarif Komite</span>
 					</a>
 				</li>
-				
 				<li>
-					<a href="<?=base_url();?>admin/tarif_komite">
+					<a href="<?=base_url();?>admin/data_kelas">
 					<i class="icon-rocket"></i>
-					<span class="title">Sumbangan Komite</span>
+					<span class="title">Data Kelas</span>
 					</a>
 				</li>
+				
 				<li>
 					<a href="<?=base_url();?>admin/data_siswa">
 					<i class="icon-rocket"></i>
 					<span class="title">Data Siswa</span>
 					</a>
 				</li>
+				<li>
+					<a href="<?=base_url();?>admin/tarif_komite">
+					<i class="icon-rocket"></i>
+					<span class="title">Sumbangan Komite</span>
+					</a>
+				</li>
+				
 				<li>
 					<a href="<?=base_url();?>admin/data_siswa">
 					<i class="icon-rocket"></i>

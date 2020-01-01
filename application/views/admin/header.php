@@ -22,9 +22,19 @@
 <link href="<?=base_url();?>asset/bootstrap-daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/fullcalendar/fullcalendar.min.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/jqvmap/jqvmap/jqvmap.css" rel="stylesheet" type="text/css"/>
+
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/clockface/css/clockface.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/bootstrap-datepicker/css/datepicker3.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/bootstrap-timepicker/css/bootstrap-timepicker.min.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/bootstrap-colorpicker/css/colorpicker.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/bootstrap-daterangepicker/daterangepicker-bs3.css"/>
+<link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css"/>
 <!-- END PAGE LEVEL PLUGIN STYLES -->
 <!-- BEGIN PAGE STYLES -->
 <link href="<?=base_url();?>asset/admin/pages/css/tasks.css" rel="stylesheet" type="text/css"/>
+
+<!-- datepicker -->
+<link rel="stylesheet" href="<?=base_url();?>asset/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css">
 <!-- table -->
 <link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/datatables/extensions/Scroller/css/dataTables.scroller.min.css"/>
 <link rel="stylesheet" type="text/css" href="<?=base_url();?>asset/datatables/extensions/ColReorder/css/dataTables.colReorder.min.css"/>
