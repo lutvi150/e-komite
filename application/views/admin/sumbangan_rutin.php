@@ -93,6 +93,7 @@
 									 Nama Kelas
 								</th>
 								<th>Total Sumbangan</th>
+								<th>Bulan</th>
 								<th>Status </th>
 								<th style="width: 120px;">
 									 Action
@@ -112,6 +113,7 @@
 	<td><?=$value['nisn']?></td>
 	<td><?=$value['nama_kelas']?></td>
 	<td>Rp. <?=number_format($value['tarif_komite'])?></td>
+	<td><?=$value['waktu']?></td>
 	<td>
 		<?php  if ($value['status']=='-'):?>
 			<a href="#" class="label label-danger"><i class="fa fa-ban"></i>Belum lunas</a>
@@ -220,6 +222,16 @@
 				  </select>
 				  <small id="helpId" class="text-muted">Pilih tahun Laporan</small>
 				</div>
+				<div class="form-group">
+					<label for="">Pilih Kelas</label>
+					<select name="kelas" class="form-control" id="">
+						<option value="">Pilih Kelas</option>
+						<?php foreach ($kelas as $value):?>
+						<option value="<?=$value['id_kelas']?>"><?=$value['nama_kelas']?></option>
+						<?php endforeach; ?>
+					</select>
+					<small id="helpId" class="text-muted">Pilih tahun Laporan</small>
+				  </div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

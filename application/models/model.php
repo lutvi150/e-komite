@@ -86,6 +86,15 @@ class model extends CI_Model
         $this->db->where($id_reference, $referensi);
         $this->db->delete($table);
     }
+    public function data_bulan($tahun)
+    {
+        $this->db->distinct();
+        $this->db->select('waktu');
+        $this->db->from('tb_sumbangan');
+        $this->db->where('SUBSTRING(waktu,3,4)', $tahun);
+        return $this->db->get();
+        
+    }
   
 
 
