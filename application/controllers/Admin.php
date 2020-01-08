@@ -432,7 +432,7 @@ class Admin extends CI_Controller
 
         $data['kelas'] = $this->model->get_data('tb_kelas', 'id_kelas', 'DESC')->result_array();
         //print_r($data);
-        $this->menu('admin/sumbangan_rutin', $data);
+        $this->menu('admin/sumbangan_isidentil', $data);
     }
     public function cetak_laporan_rutin(Type $var = null)
     {
