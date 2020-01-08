@@ -293,6 +293,11 @@ class Admin extends CI_Controller
           $this->session->set_flashdata('success', 'Data berhasil di hapus');
           redirect('admin/sumbangan_isi');
       }
+    // sumbangan isdentil persiswa
+    public function transaksi(Type $var = null)
+    {
+        $this->menu('admin/transaksi','a');
+    }
     public function tambah_sumbangan_k($status)
     {
         if ($status == 'rutin') {
@@ -379,6 +384,43 @@ class Admin extends CI_Controller
         redirect('admin/sumbangan_rutin');
     }
     // sumbangan persiswa
+    public function sumbangan_persiswa_isidentil(Type $var = null)
+    {
+        $tahun = $this->input->post('tahun');
+        $nisn = $this->input->post('nisn');
+        $total=$this->input->post('jumlah');
+        
+        if ($tahun == null) {
+            $this->session->set_flashdata('error', 'Maaf Bulan atau taahun tidak boleh kosong');
+            redirect('admin/sumbangan_isidentil');
+        } else {
+            $check = $this->model->find_data('tb_data_user', 'nisn', $nisn);
+            if ($check->num_rows() == '0') {
+                $this->session->set_flashdata('error', 'Maaf NISN tersebut tidak terdaftar di sistem');
+                redirect('admin/sumbangan_rutin');
+            } else {
+                $data_siswa = $check->row_array();
+                $tarif = $this->model->find_data('tb_tarif', 'id_tarif', $data_siswa['id_golongan'])->row_array();
+                $data =
+                    [
+                    'jenis_sumbangan' => 'isidentil',
+                    'nisn' => $nisn,
+                    'total' => $this->input->post('jumlah'),
+                    'waktu' => $tahun,
+                    'status' => '-',
+                    'tgl_bayar' => '-',
+                ];
+                $pesan = "Sumbangan Komite Isidentil anda tahun " . $tahun . " Rp. " . number_format($total);
+                $nomor = $data_siswa['no_hp'];
+                $this->send_sms($pesan, $nomor);
+                $this->model->create_data('tb_sumbangan', $data);
+                $this->session->set_flashdata('success', 'Sumbangan Isidentil Berhasil di Buat');
+                redirect('admin/sumbangan_isi');
+            }
+
+        }
+    }
+    // sumbangan persiswa
     public function sumbangan_persiswa_rutin(Type $var = null)
     {
         $bulan = $this->input->post('bulan');
@@ -424,33 +466,7 @@ class Admin extends CI_Controller
         } else {
             $data['status_data'] = '1';
             foreach ($sumbangan->result_array() as $value) {
-                $waktu = substr($value['waktu'], 0, 1);
-                $tahun = substr($value['waktu'], 2, 4);
-                if ($waktu == '1') {
-                    $bulan = "Januari Tahun " . $tahun;
-                } elseif ($waktu == '2') {
-                    $bulan = "Feruari Tahun " . $tahun;
-                } elseif ($waktu == '12') {
-                    $bulan = "Desember Tahun " . $tahun;
-                } elseif ($waktu == '3') {
-                    $bulan = "Maret Tahun " . $tahun;
-                } elseif ($waktu == '4') {
-                    $bulan = "April Tahun " . $tahun;
-                } elseif ($waktu == '5') {
-                    $bulan = "Mei Tahun " . $tahun;
-                } elseif ($waktu == '6') {
-                    $bulan = "Juni Tahun " . $tahun;
-                } elseif ($waktu == '7') {
-                    $bulan = "Juli Tahun " . $tahun;
-                } elseif ($waktu == '8') {
-                    $bulan = "Agustus Tahun " . $tahun;
-                } elseif ($waktu == '9') {
-                    $bulan = "September Tahun " . $tahun;
-                } elseif ($waktu == '10') {
-                    $bulan = "Oktober Tahun " . $tahun;
-                } elseif ($waktu == '11') {
-                    $bulan = "November Tahun " . $tahun;
-                }
+                
                 $data_siswa = $this->model->find_data('tb_data_user', 'nisn', $value['nisn'])->row_array();
                 $data_kelas = $this->model->find_data('tb_kelas', 'id_kelas', $data_siswa['id_kelas'])->row_array();
                 $tarif_komite = $this->model->find_data('tb_tarif', 'id_tarif', $data_siswa['id_golongan'])->row_array();
@@ -458,12 +474,12 @@ class Admin extends CI_Controller
                     'id_sumbangan' => $value['id_sumbangan'],
                     'jenis_sumbangan' => $value['jenis_sumbangan'],
                     'nisn' => $value['nisn'],
-                    'waktu' => $bulan,
+                    'waktu' => "Tahun ".$value['waktu'],
                     'status' => $value['status'],
                     'tgl_bayar' => $value['tgl_bayar'],
                     'nama_siswa' => $data_siswa['nama_siswa'],
                     'nama_kelas' => $data_kelas['nama_kelas'],
-                    'tarif_komite' => $tarif_komite['tarif_komite'],
+                    'tarif_komite' => $value['total'],
                 ];
             }
             $data['sumbangan'] = $hasil;

@@ -234,7 +234,7 @@
 <div class="modal fade" id="tambah_persiswa" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form action="<?=base_url();?>admin/sumbangan_persiswa_rutin" method="post">
+			<form action="<?=base_url();?>admin/sumbangan_persiswa_isidentil" method="post">
 			<div class="modal-header">
 				<h5 class="modal-title">Tambah Persiswa</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -252,35 +252,13 @@
 				  <input type="text" name="nama" id="nama" readonly class="form-control" placeholder="" aria-describedby="helpId">
 				  
 				</div>
-				<div class="form-group">
-					<label for="">Golongan</label>
-					<input type="text" name="golongan" id="golongan" readonly class="form-control" placeholder="" aria-describedby="helpId">
-					
-				  </div>
+				
 				<div class="form-group">
 				  <label for="">Jumlah</label>
-				  <input type="text" name="jumlah" id="jumlah" readonly class="form-control" placeholder="" aria-describedby="helpId">
+				  <input type="text" name="jumlah" required id="jumlah_"  class="form-control" placeholder="" aria-describedby="helpId">
 				  
 				</div>
-				<div class="form-group">
-					<label for="">Pilih Bulan</label>
-					<select name="bulan" class="form-control" id="bulan">
-					  <option value="">Pilih Bulan Tagihan</option>
-					  <option value="1">Januari</option>
-					  <option value="2">Februari</option>
-					  <option value="3">Maret</option>
-					  <option value="4">April</option>
-					  <option value="5">Mei</option>
-					  <option value="6">Juni</option>
-					  <option value="7">Juli</option>
-					  <option value="8">Agustus</option>
-					  <option value="9">September</option>
-					  <option value="10">Oktober</option>	
-					  <option value="11">November</option>
-					  <option value="12">Desember</option>
-				  </select>
-					<small id="helpId" class="text-muted">Pilih Bulan</small>
-				  </div>
+			
 				  <div class="form-group">
 					<label for="">Pilih Tahun</label>
 					<select name="tahun" class="form-control" id="tahun">
