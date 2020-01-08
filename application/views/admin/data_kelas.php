@@ -58,21 +58,21 @@
 							<div class="tools">
 							</div>
                         </div>
-                        
+
 						<div class="portlet-body">
-                            
+
                             <a href="#" class="btn btn-success btn-sm tambah-kelas"><i class="fa fa-plus"></i>Tambah Kelas</a>
-                            <?php if ($this->session->userdata('error')):?>
+                            <?php if ($this->session->userdata('error')): ?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-ban"></i> Maaf !</h4>
-							<?php echo $this->session->userdata('error');?>
+							<?php echo $this->session->userdata('error'); ?>
 						</div>
-						<?php elseif ($this->session->userdata('success')):?>
+						<?php elseif ($this->session->userdata('success')): ?>
 						<div id="message_success" class="alert alert-success alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
 							<h4><i class="icon fa fa-check"></i> Success !</h4>
-							<?php echo $this->session->userdata('success');?>
+							<?php echo $this->session->userdata('success'); ?>
 						</div>
 						<?php endif;?>
 							<table class="table table-striped table-bordered table-hover" id="sample_1">
@@ -82,7 +82,7 @@
 									 No
 								</th>
 								<th>
-									 Nama Kelas 
+									 Nama Kelas
 								</th>
 								<th>
 									 Jumlah Siswa
@@ -94,8 +94,8 @@
 							</thead>
 							<tbody>
                                 <?php
-                                $no=1;
-                                foreach ($kelas as  $value):?>
+$no = 1;
+foreach ($kelas as $value): ?>
                                 <tr>
                                     <td><?=$no++?></td>
                                     <td><?=$value['nama_kelas']?></td>
@@ -105,7 +105,7 @@
                                         <a href="#" class="btn btn-danger btn-sm modal-hapus" data="<?=base_url();?>admin/simpan_kelas/hapus/<?=$value['id_kelas']?>"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
-                                <?php endforeach; ?>
+                                <?php endforeach;?>
                             </tbody>
 							</table>
 						</div>
@@ -148,4 +148,4 @@
 </div>
 
 <?php $this->load->view('admin/modal_hapus');
- ?>
+?>

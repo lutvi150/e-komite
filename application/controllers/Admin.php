@@ -88,6 +88,15 @@ class Admin extends CI_Controller
         redirect('admin/data_kelas');
         //print_r($data);
     }
+    // data siswa json
+    public function data_siswa_json(Type $var = null)
+    {
+        //$id='15500100083';
+        $id = $this->input->get('id');
+        $response['data_siswa'] = $this->model->find_data('tb_data_user', 'nisn', $id)->row_array();
+        $response['tarif'] = $this->model->find_data('tb_tarif', 'id_tarif', $response['data_siswa']['id_golongan'])->row_array();
+        echo json_encode($response);
+    }
     // detail kelas
     public function detail_json($tabel, $id_reference)
     {
@@ -318,6 +327,113 @@ class Admin extends CI_Controller
             # code...
         }
     }
+    // konfirmasi bayar rutin
+    public function bayar_sumbangan_rutin($id)
+    {
+        $data=
+        [
+            'status'=>'1',
+            'tgl_bayar'=>date('d-m-Y'),
+        ];
+        $this->model->update_data('tb_sumbangan','id_sumbangan',$id,$data);
+        $this->session->set_flashdata('success', 'Konfirmasi Pembayaran Berhasil');
+        redirect('admin/sumbangan_rutin');
+    }
+    // sumbangan persiswa
+    public function sumbangan_persiswa_rutin(Type $var = null)
+    {
+        $bulan = $this->input->post('bulan');
+        $tahun = $this->input->post('tahun');
+        $nisn = $this->input->post('nisn');
+
+        if ($bulan == null or $tahun == null) {
+            $this->session->set_flashdata('error', 'Maaf Bulan atau taahun tidak boleh kosong');
+            redirect('admin/sumbangan_rutin');
+        } else {
+            $check = $this->model->find_data('tb_data_user', 'nisn', $nisn);
+            if ($check->num_rows() == '0') {
+                $this->session->set_flashdata('error', 'Maaf NISN tersebut tidak terdaftar di sistem');
+                redirect('admin/sumbangan_rutin');
+            } else {
+                $data_siswa = $check->row_array();
+                $tarif = $this->model->find_data('tb_tarif', 'id_tarif', $data_siswa['id_golongan'])->row_array();
+                $data =
+                    [
+                    'jenis_sumbangan' => 'rutin',
+                    'nisn' => $nisn,
+                    'total' => $this->input->post('jumlah'),
+                    'waktu' => $bulan . '-' . $tahun,
+                    'status' => '-',
+                    'tgl_bayar' => '-',
+                ];
+                $pesan = "Sumbangan Komite Rutin anda Bulan " . $bulan . " tahun " . $tahun . " Rp. " . number_format($tarif['tarif_komite']);
+                $nomor = $data_siswa['no_hp'];
+                $this->send_sms($pesan, $nomor);
+                $this->model->create_data('tb_sumbangan', $data);
+                $this->session->set_flashdata('success', 'Sumbangan Rutin Berhasil di Buat');
+                redirect('admin/sumbangan_rutin');
+            }
+
+        }
+    }
+    // sumbangan isidentil
+    public function sumbangan_isi(Type $var = null)
+    {
+        $sumbangan = $this->model->find_data('tb_sumbangan', 'jenis_sumbangan', 'isidentil');
+        if ($sumbangan->num_rows() == '0') {
+            $data['status_data'] = '0';
+        } else {
+            $data['status_data'] = '1';
+            foreach ($sumbangan->result_array() as $value) {
+                $waktu = substr($value['waktu'], 0, 1);
+                $tahun = substr($value['waktu'], 2, 4);
+                if ($waktu == '1') {
+                    $bulan = "Januari Tahun " . $tahun;
+                } elseif ($waktu == '2') {
+                    $bulan = "Feruari Tahun " . $tahun;
+                } elseif ($waktu == '12') {
+                    $bulan = "Desember Tahun " . $tahun;
+                } elseif ($waktu == '3') {
+                    $bulan = "Maret Tahun " . $tahun;
+                } elseif ($waktu == '4') {
+                    $bulan = "April Tahun " . $tahun;
+                } elseif ($waktu == '5') {
+                    $bulan = "Mei Tahun " . $tahun;
+                } elseif ($waktu == '6') {
+                    $bulan = "Juni Tahun " . $tahun;
+                } elseif ($waktu == '7') {
+                    $bulan = "Juli Tahun " . $tahun;
+                } elseif ($waktu == '8') {
+                    $bulan = "Agustus Tahun " . $tahun;
+                } elseif ($waktu == '9') {
+                    $bulan = "September Tahun " . $tahun;
+                } elseif ($waktu == '10') {
+                    $bulan = "Oktober Tahun " . $tahun;
+                } elseif ($waktu == '11') {
+                    $bulan = "November Tahun " . $tahun;
+                }
+                $data_siswa = $this->model->find_data('tb_data_user', 'nisn', $value['nisn'])->row_array();
+                $data_kelas = $this->model->find_data('tb_kelas', 'id_kelas', $data_siswa['id_kelas'])->row_array();
+                $tarif_komite = $this->model->find_data('tb_tarif', 'id_tarif', $data_siswa['id_golongan'])->row_array();
+                $hasil[] = [
+                    'id_sumbangan' => $value['id_sumbangan'],
+                    'jenis_sumbangan' => $value['jenis_sumbangan'],
+                    'nisn' => $value['nisn'],
+                    'waktu' => $bulan,
+                    'status' => $value['status'],
+                    'tgl_bayar' => $value['tgl_bayar'],
+                    'nama_siswa' => $data_siswa['nama_siswa'],
+                    'nama_kelas' => $data_kelas['nama_kelas'],
+                    'tarif_komite' => $tarif_komite['tarif_komite'],
+                ];
+            }
+            $data['sumbangan'] = $hasil;
+        }
+
+        $data['kelas'] = $this->model->get_data('tb_kelas', 'id_kelas', 'DESC')->result_array();
+        //print_r($data);
+        $this->menu('admin/sumbangan_rutin', $data);
+    }
     public function cetak_laporan_rutin(Type $var = null)
     {
 
@@ -400,11 +516,11 @@ class Admin extends CI_Controller
 
                         $pdf->Cell(20, 6, '', 1, 0, 'L');
                     } else {
-                        
-            $pdf->SetFont('Symbol', 'B', 10);
+
+                        $pdf->SetFont('Symbol', 'B', 10);
                         $pdf->Cell(20, 6, '√', 1, 0, 'L');
-                        
-            $pdf->SetFont('Arial', 'B', 10);
+
+                        $pdf->SetFont('Arial', 'B', 10);
                     }
 
                 }

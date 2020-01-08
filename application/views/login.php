@@ -63,7 +63,7 @@ License: You must have a valid license purchased only from themeforest(the above
 <div class="content">
 	<!-- BEGIN LOGIN FORM -->
 	<form class="login-form" action="<?=base_url();?>controller/verifikasi_login" method="post">
-		<div  class="black"><h3 class=" text-center black">SMA 1 NEGERI RAMBATAN</h3></div>
+		<div  class="black"><h3 class=" text-center black">SMA NEGERI 1 RAMBATAN</h3></div>
 		<?php if ($this->session->userdata('error')):?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

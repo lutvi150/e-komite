@@ -59,7 +59,35 @@
 	});
 
 </script>
-<script>
+<script> 
+// konfirmasi bayar
+$(".konfirmasi-bayar").click(function (e) { 
+	let id=$(this).attr("data");
+	$("#form_konfirmasi_bayar").attr("action",id);
+	$("#bayar_konfirmasi").modal("show");
+});
+// cari data siswa
+$("#nisn").keyup(function (e) { 
+	let id=$(this).val();
+	$.ajax({
+		 type: "GET",
+		 url: "<?=base_url();?>admin/data_siswa_json",
+		 data: {"id":id},
+		 dataType: "JSON",
+		 success: function (response) {
+			 console.log(response);
+			 $("#nama").val(response.data_siswa.nama_siswa);
+			 $("#golongan").val(response.tarif.golongan_komite);
+			 $("#jumlah").val(response.tarif.tarif_komite);
+		 }
+	 });
+});
+// tambah persiswa
+$(".tambah-sumbangan").click(function (e) { 
+	$("#tambah_persiswa").modal("show");
+
+});
+// tambang sumbangan
 	$('.cetak-laporan-rutin').click(function (e) { 
 		$('#cetak_laporan').modal('show');
 	});

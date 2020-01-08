@@ -29,7 +29,7 @@
 			<div class="page-head">
 				<!-- BEGIN PAGE TITLE -->
 				<div class="page-title">
-					<h1>Data Sumbangan Rutin SMA Negeri 1 Rambatan</h1>
+					<h1>Data Sumbangan Isidentil SMA Negeri 1 Rambatan</h1>
 				</div>
 			</div>
 			<!-- END PAGE HEAD -->
@@ -63,7 +63,7 @@
                             
 							<a href="#" class="btn btn-success btn-sm tambah-sumbangan"><i class="fa fa-plus"></i>Tambah Persiswa</a>
 							<a href="#" class="btn btn-success btn-sm tambah-keseluruhan"><i class="fa fa-plus"></i>Tambah Kelesuruhan</a>
-							<a href="#" class="btn btn-warning btn-sm cetak-laporan-rutin"  ><i class="fa fa-print"></i> Cetak Laporan</a>
+							<!-- <a href="#" class="btn btn-warning btn-sm cetak-laporan-rutin"  ><i class="fa fa-print"></i> Cetak Laporan</a> -->
                             <?php if ($this->session->userdata('error')):?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -93,7 +93,7 @@
 									 Nama Kelas
 								</th>
 								<th>Total Sumbangan</th>
-								<th>Bulan</th>
+								<th>Tahun</th>
 								<th>Status </th>
 								<th style="width: 120px;">
 									 Action
@@ -148,33 +148,15 @@
 <div class="modal fade" id="tambah_keseluruhan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
-			<form action="<?=base_url();?>admin/tambah_sumbangan_k/rutin" method="post">
+			<form action="<?=base_url();?>admin/tambah_sumbangan_k/isidentil" method="post">
 			<div class="modal-header">
-				<h5 class="modal-title">Tambah Sumbangan Rutin</h5>
+				<h5 class="modal-title">Tambah Sumbangan Isidentil</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 			</div>
 			<div class="modal-body">
-				<div class="form-group">
-				  <label for="">Pilih Bulan</label>
-				  <select name="bulan" class="form-control" id="bulan">
-					<option value="">Pilih Bulan Tagihan</option>
-					<option value="1">Januari</option>
-					<option value="2">Februari</option>
-					<option value="3">Maret</option>
-					<option value="4">April</option>
-					<option value="5">Mei</option>
-					<option value="6">Juni</option>
-					<option value="7">Juli</option>
-					<option value="8">Agustus</option>
-					<option value="9">September</option>
-					<option value="10">Oktober</option>	
-					<option value="11">November</option>
-					<option value="12">Desember</option>
-				</select>
-				  <small id="helpId" class="text-muted">Pilih Bulan</small>
-				</div>
+			
 				<div class="form-group">
 				  <label for="">Pilih Tahun</label>
 				  <select name="tahun" class="form-control" id="tahun">

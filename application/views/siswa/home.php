@@ -148,7 +148,7 @@
 						<div class="portlet-title">
 							<div class="caption caption-md">
 								<i class="icon-bar-chart theme-font-color hide"></i>
-								<span class="caption-subject theme-font-color bold uppercase">SELAMAT DATANG SISTEM INFORMASI SMA 1 NEGERI RAMBATAN</span>
+								<span class="caption-subject theme-font-color bold uppercase">SELAMAT DATANG SISTEM INFORMASI SMA NEGERI 1 RAMBATAN</span>
 								<span class="caption-helper"></span>
 							</div>
 						
@@ -156,7 +156,7 @@
 						<div class="portlet-body">
 							<div class="task-content">
 								<span class="caption-subject theme-font-color bold uppercase text-center">
-									<div class="text-center">SELAMAT DATANG DI SISTEM INFORMASI SMA 1 NEGERI RAMBATAN</div>
+									<div class="text-center">SELAMAT DATANG DI SISTEM INFORMASI SMA NEGERI  1 RAMBATAN</div>
 								</span>
 							</div>
 							<div class="task-footer">
