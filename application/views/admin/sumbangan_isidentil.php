@@ -126,7 +126,7 @@
 			<a href="#" class="btn btn-success btn-sm konfirmasi-bayar" data="<?=base_url();?>admin/bayar_sumbangan_rutin/<?=$value['id_sumbangan']?>"><i class="fa fa-check"></i>Bayar</a>
 			
 			<?php endif; ?>
-			<a href="#" class="btn btn-danger btn-sm modal-hapus" data="<?=base_url();?>admin/hapus_sumbangan_k/<?=$value['id_sumbangan']?>" ><i class="fa fa-trash"></i></a>
+			<a href="#" class="btn btn-danger btn-sm modal-hapus" data="<?=base_url();?>admin/hapus_sumbangan_i/<?=$value['id_sumbangan']?>" ><i class="fa fa-trash"></i></a>
 	</td>
 </tr>
 	<?php endforeach; ?>
@@ -165,6 +165,11 @@
 				<?php endfor; ?>
 				</select>
 				  <small id="helpId" class="text-muted">Pilih Tahun</small>
+				</div>
+				<div class="form-group">
+				  <label for="">Total Sumbangan</label>
+				  <input type="text" name="total" id="total"  class="form-control" placeholder="Total Sumbangan Isidentil" aria-describedby="helpId">
+				  <small id="helpId" class="text-muted">Masukkan nominal sumbangan</small>
 				</div>
 			</div>
 			<div class="modal-footer">

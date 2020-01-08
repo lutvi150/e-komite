@@ -286,6 +286,13 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('success', 'Data berhasil di hapus');
         redirect('admin/sumbangan_rutin');
     }
+      // hapus sumbangan
+      public function hapus_sumbangan_i($id_sumbangan)
+      {
+          $this->model->delete_data('tb_sumbangan', 'id_sumbangan', $id_sumbangan);
+          $this->session->set_flashdata('success', 'Data berhasil di hapus');
+          redirect('admin/sumbangan_isi');
+      }
     public function tambah_sumbangan_k($status)
     {
         if ($status == 'rutin') {
@@ -324,18 +331,50 @@ class Admin extends CI_Controller
             }
             redirect('admin/sumbangan_rutin');
         } elseif ($status == 'isidentil') {
-            # code...
+            $tahun = $this->input->post('tahun');
+            $total = $this->input->post('total');
+
+            if ($tahun == null) {
+                $this->session->set_flashdata('error', 'Maaf tahun tidak boleh kosong');
+                redirect('admin/sumbangan_isi');
+            } else {
+                if ($total == nul) {
+                    $this->session->set_flashdata('error', 'Maaf total tidak boleh kosong');
+                    redirect('admin/sumbangan_isi');
+                } else {
+                    $data_siswa = $this->model->find_data('tb_data_user', 'status_akun_user', '1');
+                    foreach ($data_siswa->result_array() as $value) {
+                        $data =
+                            [
+                            'jenis_sumbangan' => 'isidentil',
+                            'nisn' => $value['nisn'],
+                            'total' => $total,
+                            'waktu' => $tahun,
+                            'status' => '-',
+                            'tgl_bayar' => '-',
+                        ];
+                        $pesan = "Sumbangan Komite Isidentil anda tahun " . $tahun . " Rp. " . number_format($total);
+                        $nomor = $value['no_hp'];
+                        $this->send_sms($pesan, $nomor);
+                        $this->model->create_data('tb_sumbangan', $data);
+                        
+                    }
+                    $this->session->set_flashdata('success', 'Sumbangan isidentil Berhasil di Buat');
+                        redirect('admin/sumbangan_isi');
+                }
+
+            }
         }
     }
     // konfirmasi bayar rutin
     public function bayar_sumbangan_rutin($id)
     {
-        $data=
-        [
-            'status'=>'1',
-            'tgl_bayar'=>date('d-m-Y'),
+        $data =
+            [
+            'status' => '1',
+            'tgl_bayar' => date('d-m-Y'),
         ];
-        $this->model->update_data('tb_sumbangan','id_sumbangan',$id,$data);
+        $this->model->update_data('tb_sumbangan', 'id_sumbangan', $id, $data);
         $this->session->set_flashdata('success', 'Konfirmasi Pembayaran Berhasil');
         redirect('admin/sumbangan_rutin');
     }
