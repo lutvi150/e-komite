@@ -62,7 +62,7 @@
                         
 						<div class="portlet-body">
                             
-                            <a href="#" class="btn btn-success btn-sm tambah-tarif"><i class="fa fa-plus"></i>Tambah Tarif</a>
+                            <a href="#" class="btn btn-success btn-sm tambah-tarif"><i class="fa fa-plus"></i>Tambah Transaksi</a>
                             <?php if ($this->session->userdata('error')):?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -86,31 +86,19 @@
 									 Keterangan
 								</th>
 								<th>
-									 Ketred
+									 Debit
 								</th>
 								<th>
-									 Biaya
+									 Kredit
 								</th>
+
 								<th style="width: 80px;">
 									 Action
 								</th>
 							</tr>
 							</thead>
 							<tbody>
-                                <?php
-                                $no=1;
-                                foreach ($tarif as  $value):?>
-                                <tr>
-                                    <td><?=$no++?></td>
-                                    <td><?=$value['golongan_komite']?></td>
-                                    <td><?=$value['keterangan_komite']?></td>
-                                    <td>Rp. <?=number_format($value['tarif_komite'])?></td>
-                                    <td>
-                                        <a href="#" class="btn btn-info btn-sm edit-tarif" data="<?=$value['id_tarif']?>"><if class="fa fa-edit"></if></a>
-                                        <a href="#" class="btn btn-danger btn-sm modal-hapus" data="<?=base_url();?>admin/hapus_tarif/<?=$value['id_tarif']?>"><i class="fa fa-trash"></i></a>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
+                              
                             </tbody>
 							</table>
 						</div>
@@ -131,27 +119,31 @@
         <div class="modal-content">
             <form id="form_tarif" action="<?=base_url();?>admin/simpan_tarif_komite" method="post">
             <div class="modal-header">
-                <h5 class="modal-title" id="judul_tarif">Tambah tarif</h5>
+                <h5 class="modal-title" id="judul_tarif">Tambah Transaksi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
             </div>
             <div class="modal-body">
-               <div class="form-group">
-                 <label for="">Golongan</label>
-                 <input type="text" name="golongan_komite" required id="golongan_komite" class="form-control" placeholder="" aria-describedby="helpId">
-                 <small id="helpId" class="text-muted"></small>
-               </div>
+              
                <div class="form-group">
                  <label for="">Keterangan</label>
-                <textarea required name="keterangan_komite" class="form-control" id="keterangan_komite" cols="30" rows="3"></textarea>
+                <textarea required name="keterangan" class="form-control" id="keterangan_komite" cols="30" rows="3"></textarea>
                  <small id="helpId" class="text-muted">Tambah Keterangan tentang tarif</small>
                </div>
                <div class="form-group">
-                 <label for="">Tarif</label>
-                 <input type="text" name="tarif_komite" required id="tarif_komite" class="form-control" placeholder="" aria-describedby="helpId">
+                 <label for="">Nomimal</label>
+                 <input type="text" name="nominal" required id="nominal" class="form-control" placeholder="" aria-describedby="helpId">
                  <small id="helpId" class="text-muted"></small>
                </div>
+			   <div class="form-group">
+				 <label for="">Jenis</label>
+				 <select name="jenis" class="form-control" id="">
+					 <option value="">Debit</option>
+					 <option value="">Kredit</option>
+				 </select>
+				 <small id="helpId" class="text-muted">Help text</small>
+			   </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>

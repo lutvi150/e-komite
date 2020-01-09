@@ -165,12 +165,10 @@
               <div class="form-group">
                 <label for="">Jenis Kelamin</label>
                 <div class="form-check">
-                    <label class="form-check-label">
-                    <input type="radio" class="form-check-input" name="jenis_kelamin" id="laki" value="L" >
+                    <input type="radio" class="form-check-input" name="jenis_kelamin" value="L" >
                     Laki-Laki
-                    <input type="radio" class="form-check-input" name="jenis_kelamin" id="perempuan" value="P" >
+                    <input type="radio" class="form-check-input" name="jenis_kelamin" value="P" >
                     Perempuan
-                  </label>
                 </div>
               </div>
               <div class="form-group">
