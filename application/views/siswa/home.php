@@ -116,7 +116,7 @@
 					<div class="dashboard-stat2">
 						<div class="display">
 							<div class="number">
-								<h3 class="font-green-sharp">Rp.30.000.000</h3>
+								<h3 class="font-green-sharp">Rp.<?=number_format($total)?></h3>
 								<small>Tagihan Anda</small>
 							</div>
 							<div class="icon">
@@ -131,7 +131,7 @@
 					<div class="dashboard-stat2">
 						<div class="display">
 							<div class="number">
-								<h3 class="font-purple-soft">276</h3>
+								<h3 class="font-purple-soft"><?=$jumlah_siswa?></h3>
 								<small>TOTAL MURID</small>
 							</div>
 							<div class="icon">

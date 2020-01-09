@@ -90,6 +90,7 @@
 								<th>
 									 Nama Kelas
 								</th>
+								<th>Jenis Sumbangan</th>
 								<th>Total Sumbangan</th>
 								<th>Status </th>
 							</tr>
@@ -106,6 +107,7 @@
 	<td><?=$value['nama_siswa']?></td>
 	<td><?=$value['nisn']?></td>
 	<td><?=$value['nama_kelas']?></td>
+	<td><?=$value['jenis_sumbangan']?></td>
 	<td>Rp. <?=number_format($value['tarif_komite'])?></td>
 	<td>
 		<?php  if ($value['status']=='-'):?>
