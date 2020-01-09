@@ -91,8 +91,8 @@ class Admin extends CI_Controller
     // data siswa json
     public function data_siswa_json(Type $var = null)
     {
-        //$id='15500100083';
-        $id = $this->input->get('id');
+        $id='898989';
+        //$id = $this->input->get('id');
         $response['data_siswa'] = $this->model->find_data('tb_data_user', 'nisn', $id)->row_array();
         $response['tarif'] = $this->model->find_data('tb_tarif', 'id_tarif', $response['data_siswa']['id_golongan'])->row_array();
         echo json_encode($response);
@@ -187,7 +187,7 @@ class Admin extends CI_Controller
                             'jenis_kelamin' => $this->input->post('jenis_kelamin'),
                             'alamat' => $this->input->post('alamat'),
                             'id_kelas' => $this->input->post('id_kelas'),
-                            'id_golongan' => $this->input->post('id_kelas'),
+                            'id_golongan' => $this->input->post('id_golongan'),
                             'status_akun_user' => '0',
                             'no_hp' => $this->input->post('no_hp'),
                             'foto_siswa' => 'upload/' . $foto['error']['foto_diri']['file_name'],
