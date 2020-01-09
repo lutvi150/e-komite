@@ -25,8 +25,19 @@ class Siswa extends CI_Controller
     }
     public function index(Type $var = null)
     {
- 
-       $this->menu('siswa/home','a');
+        $username=$this->session->userdata('username');
+        $data['jumlah_siswa']=$this->model->get_data('tb_data_user','id_siswa','DESC')->num_rows();
+        $tagihan=$this->model->tagihan_siswa($username);
+        if ($tagihan->num_rows()=='0') {
+            $data['total']='0';
+        }else {
+            foreach ($tagihan->result_array() as $value) {
+                $hasil[]=$value['total'];
+            }
+            $data['total']=array_sum($hasil);
+        }
+        //print_r($data);
+       $this->menu('siswa/home',$data);
     }
     public function sumbangan()
     {

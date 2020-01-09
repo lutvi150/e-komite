@@ -95,6 +95,14 @@ class model extends CI_Model
         return $this->db->get();
         
     }
+    public function tagihan_siswa($username)
+    {
+        $this->db->from('tb_sumbangan');
+        $this->db->where('nisn', $username);
+        $this->db->where('status','-');
+        return $this->db->get();
+        
+    }
   
 
 
