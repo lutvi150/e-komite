@@ -117,7 +117,7 @@
 <div class="modal fade" id="tambah_tarif" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form id="form_tarif" action="<?=base_url();?>admin/simpan_tarif_komite" method="post">
+            <form id="" action="<?=base_url();?>admin/simpan_transaksi" method="post">
             <div class="modal-header">
                 <h5 class="modal-title" id="judul_tarif">Tambah Transaksi</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -139,8 +139,8 @@
 			   <div class="form-group">
 				 <label for="">Jenis</label>
 				 <select name="jenis" class="form-control" id="">
-					 <option value="">Debit</option>
-					 <option value="">Kredit</option>
+					 <option value="Debit">Debit</option>
+					 <option value="Kredit">Kredit</option>
 				 </select>
 				 <small id="helpId" class="text-muted">Help text</small>
 			   </div>

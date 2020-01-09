@@ -279,6 +279,24 @@ class Admin extends CI_Controller
         //print_r($data);
         $this->menu('admin/sumbangan_rutin', $data);
     }
+    // simpan transaksi
+    public function simpan_transaksi(Type $var = null)
+    {
+        $keterangan=$this->input->post('keterangan');
+        $nominal=$this->input->post('nominal');
+        $jenis=$this->input->post('jenis');
+        
+        $data=
+        [
+            'tgl_transaksi'=>date('d-m-Y'),
+            'keterangan'=>$keterangan,
+            'nominal'=>$nominil,
+            'jenis'=>$jenis,
+        ];
+        $this->model->create_data('tb_transaksi',$data);
+        $this->session->set_flashdata('success', 'Transaksi Sukses di tambahkan');
+        redirect('admin/transaksi');
+    }
     // hapus sumbangan
     public function hapus_sumbangan_k($id_sumbangan)
     {
