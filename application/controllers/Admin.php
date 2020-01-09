@@ -209,6 +209,7 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('success', 'Data Siswa Berhasil di Ubah');
         } elseif ($status == 'hapus') {
             $this->model->delete_data('tb_data_user', 'id_siswa', $id);
+            $this->model->delete_data('tb_user', 'username', $id);
             $this->session->set_flashdata('success', 'Data Siswa Berhasil di Hapus');
         } elseif ($status == 'aktifkan') {
             $check = $this->model->find_data('tb_user', 'username', $id);
