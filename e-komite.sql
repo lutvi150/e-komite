@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 09 Jan 2020 pada 07.23
+-- Waktu pembuatan: 09 Jan 2020 pada 07.25
 -- Versi server: 5.7.24
 -- Versi PHP: 7.3.9
 
@@ -136,15 +136,6 @@ CREATE TABLE `tb_transaksi` (
   `tgl_transaksi` varchar(40) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data untuk tabel `tb_transaksi`
---
-
-INSERT INTO `tb_transaksi` (`id_transaksi`, `keterangan`, `jenis`, `jumlah`, `tgl_transaksi`) VALUES
-(0, 'uang sumbangan dari dinas pendidikan', 'Debit', '30000000', '09-01-2020'),
-(0, 'Pembelian alata tulisa kantur', 'Kredit', '3000000', '09-01-2020'),
-(0, 'Pembelian Meja dan Kursi', 'Kredit', '10000000', '09-01-2020');
-
 -- --------------------------------------------------------
 
 --
@@ -197,6 +188,12 @@ ALTER TABLE `tb_sumbangan`
 --
 ALTER TABLE `tb_tarif`
   ADD PRIMARY KEY (`id_tarif`);
+
+--
+-- Indeks untuk tabel `tb_transaksi`
+--
+ALTER TABLE `tb_transaksi`
+  ADD PRIMARY KEY (`id_transaksi`);
 
 --
 -- Indeks untuk tabel `tb_user`
