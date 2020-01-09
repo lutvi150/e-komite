@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Waktu pembuatan: 09 Jan 2020 pada 07.25
--- Versi server: 5.7.24
--- Versi PHP: 7.3.9
+-- Generation Time: Jan 09, 2020 at 12:13 PM
+-- Server version: 5.7.24
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_data_user`
+-- Table structure for table `tb_data_user`
 --
 
 CREATE TABLE `tb_data_user` (
@@ -44,7 +44,7 @@ CREATE TABLE `tb_data_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_data_user`
+-- Dumping data for table `tb_data_user`
 --
 
 INSERT INTO `tb_data_user` (`id_siswa`, `nisn`, `nama_siswa`, `tempat_lahir`, `tanggal_lahir`, `jenis_kelamin`, `id_kelas`, `foto_siswa`, `alamat`, `status_akun_user`, `id_golongan`, `no_hp`) VALUES
@@ -55,7 +55,7 @@ INSERT INTO `tb_data_user` (`id_siswa`, `nisn`, `nama_siswa`, `tempat_lahir`, `t
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_kelas`
+-- Table structure for table `tb_kelas`
 --
 
 CREATE TABLE `tb_kelas` (
@@ -64,7 +64,7 @@ CREATE TABLE `tb_kelas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_kelas`
+-- Dumping data for table `tb_kelas`
 --
 
 INSERT INTO `tb_kelas` (`id_kelas`, `nama_kelas`) VALUES
@@ -74,7 +74,7 @@ INSERT INTO `tb_kelas` (`id_kelas`, `nama_kelas`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_sumbangan`
+-- Table structure for table `tb_sumbangan`
 --
 
 CREATE TABLE `tb_sumbangan` (
@@ -88,7 +88,7 @@ CREATE TABLE `tb_sumbangan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_sumbangan`
+-- Dumping data for table `tb_sumbangan`
 --
 
 INSERT INTO `tb_sumbangan` (`id_sumbangan`, `jenis_sumbangan`, `nisn`, `total`, `waktu`, `status`, `tgl_bayar`) VALUES
@@ -102,7 +102,7 @@ INSERT INTO `tb_sumbangan` (`id_sumbangan`, `jenis_sumbangan`, `nisn`, `total`, 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_tarif`
+-- Table structure for table `tb_tarif`
 --
 
 CREATE TABLE `tb_tarif` (
@@ -113,7 +113,7 @@ CREATE TABLE `tb_tarif` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_tarif`
+-- Dumping data for table `tb_tarif`
 --
 
 INSERT INTO `tb_tarif` (`id_tarif`, `golongan_komite`, `keterangan_komite`, `tarif_komite`) VALUES
@@ -125,7 +125,7 @@ INSERT INTO `tb_tarif` (`id_tarif`, `golongan_komite`, `keterangan_komite`, `tar
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_transaksi`
+-- Table structure for table `tb_transaksi`
 --
 
 CREATE TABLE `tb_transaksi` (
@@ -139,7 +139,7 @@ CREATE TABLE `tb_transaksi` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tb_user`
+-- Table structure for table `tb_user`
 --
 
 CREATE TABLE `tb_user` (
@@ -152,7 +152,7 @@ CREATE TABLE `tb_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tb_user`
+-- Dumping data for table `tb_user`
 --
 
 INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`, `status_akun`, `tgl_registrasi`) VALUES
@@ -166,71 +166,77 @@ INSERT INTO `tb_user` (`id_user`, `username`, `password`, `level`, `status_akun`
 --
 
 --
--- Indeks untuk tabel `tb_data_user`
+-- Indexes for table `tb_data_user`
 --
 ALTER TABLE `tb_data_user`
   ADD PRIMARY KEY (`id_siswa`);
 
 --
--- Indeks untuk tabel `tb_kelas`
+-- Indexes for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
   ADD PRIMARY KEY (`id_kelas`);
 
 --
--- Indeks untuk tabel `tb_sumbangan`
+-- Indexes for table `tb_sumbangan`
 --
 ALTER TABLE `tb_sumbangan`
   ADD PRIMARY KEY (`id_sumbangan`);
 
 --
--- Indeks untuk tabel `tb_tarif`
+-- Indexes for table `tb_tarif`
 --
 ALTER TABLE `tb_tarif`
   ADD PRIMARY KEY (`id_tarif`);
 
 --
--- Indeks untuk tabel `tb_transaksi`
+-- Indexes for table `tb_transaksi`
 --
 ALTER TABLE `tb_transaksi`
   ADD PRIMARY KEY (`id_transaksi`);
 
 --
--- Indeks untuk tabel `tb_user`
+-- Indexes for table `tb_user`
 --
 ALTER TABLE `tb_user`
   ADD PRIMARY KEY (`id_user`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tb_data_user`
+-- AUTO_INCREMENT for table `tb_data_user`
 --
 ALTER TABLE `tb_data_user`
   MODIFY `id_siswa` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_kelas`
+-- AUTO_INCREMENT for table `tb_kelas`
 --
 ALTER TABLE `tb_kelas`
   MODIFY `id_kelas` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_sumbangan`
+-- AUTO_INCREMENT for table `tb_sumbangan`
 --
 ALTER TABLE `tb_sumbangan`
   MODIFY `id_sumbangan` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_tarif`
+-- AUTO_INCREMENT for table `tb_tarif`
 --
 ALTER TABLE `tb_tarif`
   MODIFY `id_tarif` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `tb_user`
+-- AUTO_INCREMENT for table `tb_transaksi`
+--
+ALTER TABLE `tb_transaksi`
+  MODIFY `id_transaksi` int(10) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tb_user`
 --
 ALTER TABLE `tb_user`
   MODIFY `id_user` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
