@@ -93,19 +93,24 @@
 							</tr>
 							</thead>
 							<tbody>
+								<?php if ($status_data=='0'):?>
+							<tr>
+							<td colspan="10">Tidak Ada Data</td></tr>
+								<?php else:?>
                                 <?php
 $no = 1;
 foreach ($kelas as $value): ?>
                                 <tr>
                                     <td><?=$no++?></td>
                                     <td><?=$value['nama_kelas']?></td>
-                                    <td>60 Orang</td>
+                                    <td><?=$value['jumlah_kelas']?> Orang</td>
                                     <td>
                                         <a href="#" class="btn btn-info btn-sm edit-kelas" data="<?=$value['id_kelas']?>"><i class="fa fa-edit"></i></a>
                                         <a href="#" class="btn btn-danger btn-sm modal-hapus" data="<?=base_url();?>admin/simpan_kelas/hapus/<?=$value['id_kelas']?>"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
-                                <?php endforeach;?>
+								<?php endforeach;?>
+<?php endif; ?>
                             </tbody>
 							</table>
 						</div>

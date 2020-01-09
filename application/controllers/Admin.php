@@ -130,7 +130,22 @@ class Admin extends CI_Controller
     // view data kelas
     public function data_kelas(Type $var = null)
     {
-        $data['kelas'] = $this->model->get_data('tb_kelas', 'id_kelas', 'DESC')->result_array();
+        $kelas= $this->model->get_data('tb_kelas', 'id_kelas', 'DESC');
+        if ($kelas->num_rows()=='0') {
+           $data['status_data']='0';
+        } else {
+           $data['status_data']='1';
+           foreach ($kelas->result_array() as  $value) {
+               $hasil[]=
+               [
+                   "id_kelas"=>$value['id_kelas'],
+                   'nama_kelas'=>$value['nama_kelas'],
+                   'jumlah_kelas'=>$this->model->find_data('tb_data_user','id_kelas',$value['id_kelas'])->num_rows(),
+               ];
+           }
+           $data['kelas']=$hasil;
+        }
+        
         $this->menu('admin/data_kelas', $data);
     }
     public function crud_siswa($status, $id)
@@ -143,32 +158,50 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('error', 'Maaf NISN sudah terdaftar');
                 redirect('admin/data_siswa');
             } else {
-
-                $foto = $this->upload_foto('foto_diri');
-                if ($foto['status'] == '0') {
-                    $this->session->set_flashdata('error', 'Maaf Foto yang anda upload tidak sesui kriteri sistem' . $foto['error']);
-
+                $id_golongan=$this->input->post('id_golongan');
+                
+                if ($id_golongan==null) {
+                    $this->session->set_flashdata('error', 'Maaf golongan belum anda pilih' . $foto['error']);
+    
                     redirect('admin/data_siswa');
                 } else {
-
-                    $data =
-                        [
-                        'nisn' => $nisn,
-                        'nama_siswa' => $this->input->post('nama_siswa'),
-                        'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                        'tempat_lahir' => $this->input->post('tempat_lahir'),
-                        'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                        'alamat' => $this->input->post('alamat'),
-                        'id_kelas' => $this->input->post('id_kelas'),
-                        'id_golongan' => $this->input->post('id_kelas'),
-                        'status_akun_user' => '0',
-                        'no_hp' => $this->input->post('no_hp'),
-                        'foto_siswa' => 'upload/' . $foto['error']['foto_diri']['file_name'],
-                    ];
-                    //print_r($data);
-                    $this->model->create_data('tb_data_user', $data);
-                    $this->session->set_flashdata('success', 'Data Siswa Berhasil di tambahkan');
+                    
+                $id_kelas=$this->input->post('id_kelas');
+                    if ($id_kelas==null) {
+                        $this->session->set_flashdata('error', 'Maaf golongan belum anda pilih' . $foto['error']);
+    
+                        redirect('admin/data_siswa');
+                    } else {
+                        $foto = $this->upload_foto('foto_diri');
+                    if ($foto['status'] == '0') {
+                        $this->session->set_flashdata('error', 'Maaf Foto yang anda upload tidak sesui kriteri sistem' . $foto['error']);
+    
+                        redirect('admin/data_siswa');
+                    } else {
+                        $data =
+                            [
+                            'nisn' => $nisn,
+                            'nama_siswa' => $this->input->post('nama_siswa'),
+                            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                            'tempat_lahir' => $this->input->post('tempat_lahir'),
+                            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                            'alamat' => $this->input->post('alamat'),
+                            'id_kelas' => $this->input->post('id_kelas'),
+                            'id_golongan' => $this->input->post('id_kelas'),
+                            'status_akun_user' => '0',
+                            'no_hp' => $this->input->post('no_hp'),
+                            'foto_siswa' => 'upload/' . $foto['error']['foto_diri']['file_name'],
+                        ];
+                        //print_r($data);
+                        $this->model->create_data('tb_data_user', $data);
+                        $this->session->set_flashdata('success', 'Data Siswa Berhasil di tambahkan');
+                    }
+                    }
+                    
+                  
                 }
+                
+                
             }
 
         } elseif ($status == 'edit') {
