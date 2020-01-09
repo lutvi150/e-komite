@@ -98,8 +98,26 @@
 							</tr>
 							</thead>
 							<tbody>
-                              
-                            </tbody>
+								<?php foreach ($transaksi as  $value):?>
+                              <tr>
+								  <td><?=$value['tgl_transaksi']?></td>
+								  <td><?=$value['keterangan']?></td>
+								  <td><?php if ($value['jenis']=="Debit") {
+									 echo "Rp. ".number_format($value['jumlah']);
+									 }?></td>
+								  <td><?php if ($value['jenis']=="Kredit") {
+									echo "Rp. ".number_format($value['jumlah']);
+									 }?></td>
+								  <td></td>
+							  </tr>
+								<?php endforeach; ?>
+							</tbody>
+							<tfoot>
+								<th colspan="2">Jumlah</th>
+								<th><?="Rp. ".number_format($jumlah_debit);?></th>
+								<th><?="Rp. ".number_format($jumlah_kredit);?></th>
+								<th></th>
+							</tfoot>
 							</table>
 						</div>
 					</div>
@@ -142,7 +160,7 @@
 					 <option value="Debit">Debit</option>
 					 <option value="Kredit">Kredit</option>
 				 </select>
-				 <small id="helpId" class="text-muted">Help text</small>
+				 <small id="helpId" class="text-muted"></small>
 			   </div>
             </div>
             <div class="modal-footer">

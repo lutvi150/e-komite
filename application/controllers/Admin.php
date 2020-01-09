@@ -290,7 +290,7 @@ class Admin extends CI_Controller
         [
             'tgl_transaksi'=>date('d-m-Y'),
             'keterangan'=>$keterangan,
-            'nominal'=>$nominil,
+            'jumlah'=>$nominal,
             'jenis'=>$jenis,
         ];
         $this->model->create_data('tb_transaksi',$data);
@@ -314,7 +314,27 @@ class Admin extends CI_Controller
     // sumbangan isdentil persiswa
     public function transaksi(Type $var = null)
     {
-        $this->menu('admin/transaksi','a');
+        $data['transaksi']=$this->model->get_data('tb_transaksi','id_transaksi','DESC')->result_array();
+        $debit=$this->model->find_data('tb_transaksi','jenis','Debit');
+        if ($debit->num_rows()=='0') {
+            $data['jumlah_debit']='0';
+        } else {
+            foreach ($debit->result_array() as  $value) {
+                $hasil[]=$value['jumlah'];
+            }
+            $data['jumlah_debit']=array_sum($hasil);
+        }
+        $kredit=$this->model->find_data('tb_transaksi','jenis','Kredit');
+        if ($kredit->num_rows()=='0') {
+            $data['jumlah_kredit']='0';
+        } else {
+            foreach ($kredit->result_array() as  $value) {
+                $hasil2[]=$value['jumlah'];
+            }
+            $data['jumlah_kredit']=array_sum($hasil2);
+        }
+        
+        $this->menu('admin/transaksi',$data);
     }
     public function tambah_sumbangan_k($status)
     {
