@@ -67,6 +67,13 @@ class model extends CI_Model
     {
         return $this->db->get($tabel);
     }
+    public function get_data_spesifik($table,$row)
+    {
+        $this->db->select($row);
+        $this->db->from($table);
+        return $this->db->get();
+        
+    }
     public function check_account($username, $password)
     {
         $this->db->where('username', $username);

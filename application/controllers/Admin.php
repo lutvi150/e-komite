@@ -40,9 +40,26 @@ class Admin extends CI_Controller
             }
             $data['profit'] = array_sum($hasil);
         }
-
+        $kelas=$this->model->get_data('tb_kelas','id_kelas','ASC');
+        if ($kelas->num_rows()=='0`') {
+            # code...
+        }else {
+            foreach ($kelas->result_array() as  $value) {
+                $array_kelas[]=$value['nama_kelas'];
+                $array_jumlah[]=$this->model->find_data('tb_data_user','id_kelas',$value['id_kelas'])->num_rows();
+            }
+            $data['kelas']=json_encode($array_kelas);
+            $data['jumlah_siswa']=json_encode($array_jumlah);
+        }
+        $laki=$this->model->find_data('tb_data_user','jenis_kelamin','L')->num_rows();
+        $perempuan=$this->model->find_data('tb_data_user','jenis_kelamin','P')->num_rows();
+        $data['jenis_kelamin']=$laki.",".$perempuan;
         $data['data_murid'] = $this->model->get_data('tb_data_user', 'id_siswa', 'desc')->num_rows();
-        $this->menu('admin/home', $data);
+        //print_r($data);
+        $this->load->view('admin/header');
+        $this->load->view('admin/sidebar_admin');
+        $this->load->view('admin/home', $data);
+        $this->load->view('admin/footer_diagram');
     }
     public function tarif_komite(Type $var = null)
     {
@@ -634,7 +651,7 @@ class Admin extends CI_Controller
                 $data_tagihan = $this->model->find_data('tb_sumbangan', 'nisn', $row['nisn'])->result_array();
                 $nomor = $no++;
 
-                $pdf->Cell(7, 6, $no2, 1, 0, 'C');
+                $pdf->Cell(7, 6, $no2++, 1, 0, 'C');
                 $pdf->Cell(47, 6, $row['nama_siswa'], 1, 0, 'C');
                 $pdf->Cell(30, 6, "Rp. " . number_format($data_bayar['tarif_komite']), 1, 0, 'C');
 
@@ -644,10 +661,7 @@ class Admin extends CI_Controller
                         $pdf->Cell(20, 6, '', 1, 0, 'L');
                     } else {
 
-                        $pdf->SetFont('Symbol', 'B', 10);
-                        $pdf->Cell(20, 6, '√', 1, 0, 'L');
-
-                        $pdf->SetFont('Arial', 'B', 10);
+                        $pdf->Cell(20, 6, 'Lunas', 1, 0, 'L');
                     }
 
                 }
@@ -661,7 +675,19 @@ class Admin extends CI_Controller
                     $pdf->AddPage();
                 }
             }
-
+            $pdf->cell(280, 10, '', 0, 0);
+            $pdf->Cell(0, 4, 'Rambatan,' . date('d M Y'), 0, 1);
+            $pdf->cell(280, 4, '', 0, 0);
+            $pdf->Cell(0, 4, 'Bendahara', 0, 1);
+            $pdf->cell(256, 6, '', 0, 0);
+            $pdf->ln(18);
+            $pdf->SetFont('Arial', 'BU', 8);
+            $pdf->cell(280, 6, '', 0, 0);
+            $pdf->Cell(0, 6, 'Yulda,S.Pd', 0, 1);
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->SetFont('Arial', '', 8);
+            $pdf->cell(256, 2, '', 0, 0);
+            $pdf->Cell(0, 1, '', 0, 1);
             //$pdf->SetFont('Arial','I',8);
             $pdf->cell(280, 4, '', 0, 1);
 
@@ -672,6 +698,8 @@ class Admin extends CI_Controller
                 $pdf->Cell(340, 4, $no3++ . '. ' . $value['keterangan_komite'] . " sumbangan rutin Rp. " . number_format($value['tarif_komite']), 0, 1, '');
             }
 
+           
+    
             $pdf->SetFont('Arial', 'B', 10);
             $pdf->SetY(270);
             $pdf->Cell(0, 9, 'Halaman ' . $pdf->PageNo(), 0, 1, 'R');
