@@ -26,7 +26,7 @@ class Admin extends CI_Controller
     }
     public function index(Type $var = null)
     {
-        $sumbangan = $this->model->find_data('tb_sumbangan', 'status', 'lunas');
+        $sumbangan = $this->model->find_data('tb_sumbangan', 'status', '1');
         if ($sumbangan->num_rows() == '0') {
             $data['profit'] = '0';
         } else {
