@@ -790,17 +790,26 @@ class Admin extends CI_Controller
                     $pdf->AddPage();
                 }
             }
-            $pdf->cell(280, 10, '', 0, 0);
+            $pdf->cell(70, 10, 'Mengetahui ', 0, 0,'L');
+            $pdf->cell(210,10,'',0,0,'L');
             $pdf->Cell(0, 4, 'Rambatan,' . date('d M Y'), 0, 1);
-            $pdf->cell(280, 4, '', 0, 0);
+            $pdf->cell(70, 10, 'Kepala Sekolah ', 0, 0,'L');
+            $pdf->cell(210, 4, '', 0, 0);
             $pdf->Cell(0, 4, 'Bendahara', 0, 1);
             $pdf->cell(256, 6, '', 0, 0);
             $pdf->ln(18);
             $pdf->SetFont('Arial', 'BU', 8);
-            $pdf->cell(280, 6, '', 0, 0);
+            
+            $pdf->cell(70, 6, 'Drs. Khairul Efendi ', 0, 0,'L');
+            $pdf->cell(210, 2, '', 0, 0);
             $pdf->Cell(0, 6, 'Yulda,S.Pd', 0, 1);
-            $pdf->SetFont('Arial', 'B', 12);
+            
+            $pdf->SetFont('Arial', 'B',8);
+            $pdf->cell(70, 2, 'NIP. 19630720 198803 1 014 ', 0, 0,'L');
+            $pdf->cell(210,4, '', 0, 0);
+            $pdf->Cell(0, 2, 'NIP. 198106712 200701 2 005', 0, 1);
             $pdf->SetFont('Arial', '', 8);
+            
             $pdf->cell(256, 2, '', 0, 0);
             $pdf->Cell(0, 1, '', 0, 1);
             //$pdf->SetFont('Arial','I',8);

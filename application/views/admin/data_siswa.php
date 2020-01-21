@@ -57,8 +57,7 @@
 							</div>
 							<div class="tools">
 							</div>
-                        </div>
-                        
+                        </div>       
 						<div class="portlet-body">
                             
 							<a href="#" class="btn btn-success btn-sm tambah-siswa"><i class="fa fa-plus"></i>Tambah Siswa</a>

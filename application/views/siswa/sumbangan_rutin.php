@@ -97,7 +97,7 @@
 							</thead>
 							<tbody>
 						<?php if ($status_data=='0'):?>
-							<tr>
+							padmin<tr>
 								<td colspan="20">Tidak Ada Data</td>
 							</tr>
 <?php elseif ($status_data=='1'):?>
@@ -105,15 +105,16 @@
 <tr>
 	<td><?=$no++?></td>
 	<td><?=$value['nama_siswa']?></td>
-	<td><?=$value['nisn']?></td>
+	<td><?=$value['nisn']?></td>l
 	<td><?=$value['nama_kelas']?></td>
 	<td><?=$value['jenis_sumbangan']?></td>
-	<td>Rp. <?=number_format($value['tarif_komite'])?></td>
+	<td>Rp. <?=number_format($value['tarif_komite =td>
 	<td>
 		<?php  if ($value['status']=='-'):?>
 			<a href="#" class="label label-danger"><i class="fa fa-ban"></i>Belum lunas</a>
-			<?php elseif ($value['status']=='-'):?>
-			<a href="#" class="label label-success"><i class="fa fa-check"></i>Belum lunas</a>
+			<?php elseif ($value['status']=='1'):?>
+				<a href="#" class="btn btn-btn-success "><i class="fa fa-money"></i>Bayar Tagihan</a>
+			<a href="#" class="label label-success"><i class="fa fa-check"></i>Lunas</a>
 			<?php endif; ?>
 	</td>
 </tr>
