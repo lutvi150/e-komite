@@ -44,6 +44,8 @@
 <link href="<?=base_url();?>asset/admin/layout4/css/layout.css" rel="stylesheet" type="text/css"/>
 <link href="<?=base_url();?>asset/admin/layout4/css/themes/light.css" rel="stylesheet" type="text/css" id="style_color"/>
 <link href="<?=base_url();?>asset/admin/layout4/css/custom.css" rel="stylesheet" type="text/css"/>
+
+<link rel="stylesheet" href="<?=base_url();?>asset/css/costume.css">
 <!-- END THEME STYLES -->
 <link rel="shortcut icon" href="<?=base_url();?>asset/images/tut_wuri_handayani.png" type="image/x-icon">
 </head>

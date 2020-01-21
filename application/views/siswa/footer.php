@@ -59,7 +59,36 @@
 	});
 
 </script>
-
+<script>
+	// bukti bayara
+	$(".bukti-bayar").click(function (e) { 
+		let id=$(this).attr('data');
+		$.ajax({
+			type: "GET",
+			url: "<?=base_url();?>siswa/bukti_bayar",
+			data: {"id":id},
+			dataType: "JSON",
+			success: function (response) {
+				console.log(response);
+				$("#bukti_bayar_image").html(`<img class="image_upload"  src="<?=base_url();?>`+response.bukti_bayar+`" alt="">`)
+				$("#modal_bukti_bayar").modal("show");
+			}
+		});
+	});
+	$(".bayar-tagihan").click(function (e) { 
+		let id=$(this).attr("data");
+		$("#id_sumbangan").val(id);
+		$("#bayar_tagihan").modal("show");
+	});
+	function loadFile(event) {
+			var reader = new FileReader();
+			reader.onload = function () {
+				var output = document.getElementById('output');
+				output.src = reader.result;
+			};
+			reader.readAsDataURL(event.target.files[0]);
+		};
+</script>
 </body>
 <!-- END BODY -->
 

@@ -108,13 +108,16 @@
 	<td><?=$value['nisn']?></td>l
 	<td><?=$value['nama_kelas']?></td>
 	<td><?=$value['jenis_sumbangan']?></td>
-	<td>Rp. <?=number_format($value['tarif_komite =td>
+	<td>Rp. <?=number_format($value['tarif_komite'])?> </td>
 	<td>
 		<?php  if ($value['status']=='-'):?>
 			<a href="#" class="label label-danger"><i class="fa fa-ban"></i>Belum lunas</a>
+				<a href="#" class="label label-success bayar-tagihan" data="<?=$value['id_sumbangan']?>"><i class="fa fa-money"></i>Bayar Tagihan</a>
 			<?php elseif ($value['status']=='1'):?>
-				<a href="#" class="btn btn-btn-success "><i class="fa fa-money"></i>Bayar Tagihan</a>
 			<a href="#" class="label label-success"><i class="fa fa-check"></i>Lunas</a>
+			<?php elseif($value['status']=='3'): ?>
+				<a href="#" class="label label-warning"><i class="fa fa-warning"></i>Konfirmasi Admin</a>
+				<a href="#" data="<?=$value['id_sumbangan']?>" class="label label-info bukti-bayar"><i class="fa fa-image"></i>Bukti Bayar</a>
 			<?php endif; ?>
 	</td>
 </tr>
@@ -190,21 +193,54 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" id="bayar_tagihan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
+			<form action="<?=base_url();?>siswa/upload_bukti_bayar" enctype="multipart/form-data" method="post">
 			<div class="modal-header">
-				<h5 class="modal-title">Modal title</h5>
+				<h5 class="modal-title">Bayar Tagihan</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 			</div>
 			<div class="modal-body">
-				Body
+				<input type="hidden" name="id_sumbangan" id="id_sumbangan">
+				<div class="form-group">
+				  <label for="">Upload Bukti Bayar</label>
+				  <input type="file" required name="bukti_bayar" id="bukti_bayar" onchange="loadFile(event)" class="form-control" placeholder="" aria-describedby="helpId">
+				  <small id="helpId" class="text-muted">Upload Bukti Bayar</small>
+				</div>
+				<div class="text-center">
+					<img class="image_upload" id="output" src="<?=base_url();?>asset/images/no-image-found-360x260.png" alt="">
+				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i>Tidak</button>
+				<button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Upload</button>
+			</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_bukti_bayar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Bukti Bayar</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center" id="bukti_bayar_image">
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 			</div>
 		</div>
 	</div>

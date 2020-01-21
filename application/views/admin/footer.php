@@ -60,6 +60,27 @@
 
 </script>
 <script> 
+// tolak tagihan
+$(".tolak-tagihan").click(function (e) {
+	let id=$(this).attr("data");
+	$("#id_sumbangan").val(id); 
+	$("#tolak_tagihan").modal("show");
+});
+// bukti bayara
+$(".bukti-bayar").click(function (e) { 
+		let id=$(this).attr('data');
+		$.ajax({
+			type: "GET",
+			url: "<?=base_url();?>admin/bukti_bayar",
+			data: {"id":id},
+			dataType: "JSON",
+			success: function (response) {
+				console.log(response);
+				$("#bukti_bayar_image").html(`<img class="image_upload"  src="<?=base_url();?>`+response.bukti_bayar+`" alt="">`)
+				$("#modal_bukti_bayar").modal("show");
+			}
+		});
+	});
 // detail siswa
 $(".detail-siswa").click(function (e) { 
 	let id=$(this).attr("data");

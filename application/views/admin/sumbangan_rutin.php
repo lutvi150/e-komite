@@ -89,13 +89,13 @@
 								<th>
 									 NISN
 								</th>
-								<th>
+								<th style="width: 90px;">
 									 Nama Kelas
 								</th>
-								<th>Total Sumbangan</th>
+								<th style="width: 120px;">Total Sumbangan</th>
 								<th>Bulan</th>
-								<th>Status </th>
-								<th style="width: 120px;">
+								<th style="width: 190px;">Status </th>
+								<th style="width: 220px;">
 									 Action
 								</th>
 							</tr>
@@ -119,12 +119,19 @@
 			<a href="#" class="label label-danger"><i class="fa fa-ban"></i>Belum lunas</a>
 			<?php elseif ($value['status']=='1'):?>
 			<a href="#" class="label label-success"><i class="fa fa-check"></i> lunas</a>
+			<?php elseif ($value['status']=='3'):?>
+			<a href="#" class="label label-warning"><i class="fa fa-warning"></i> Konfirmasi</a>
+			<a href="#" data="<?=$value['id_sumbangan']?>" class="label label-info bukti-bayar"><i class="fa fa-image"></i>Bukti</a>
+			<?php elseif ($value['status']=='4'):?>
+				<a href="#" data="<?=$value['id_sumbangan']?>" class="label label-danger bukti-tolak"><i class="fa fa-envelope"></i>Di tolak</a>
 			<?php endif; ?>
 	</td>
 	<td>
 	<?php  if ($value['status']=='-'):?>
 			<a href="#" class="btn btn-success btn-sm konfirmasi-bayar" data="<?=base_url();?>admin/bayar_sumbangan_rutin/<?=$value['id_sumbangan']?>"><i class="fa fa-check"></i>Bayar</a>
-			
+			<?php elseif ($value['status']=='3'):?>
+				<a href="#" class="btn btn-success btn-sm konfirmasi-tagihan" data="<?=$value['id_sumbangan']?>"><i class="fa fa-check"></i>Konfirmasi</a>
+				<a href="#" class="btn btn-danger btn-sm tolak-tagihan" data="<?=$value['id_sumbangan']?>"><i class="fa fa-times"></i>Tolak</a>
 			<?php endif; ?>
 			<a href="#" class="btn btn-danger btn-sm modal-hapus" data="<?=base_url();?>admin/hapus_sumbangan_k/<?=$value['id_sumbangan']?>" ><i class="fa fa-trash"></i></a>
 	</td>
@@ -333,6 +340,85 @@
 				<button type="submit" class="btn btn-primary">Ya</button>
 			</div>
 		</form>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_bukti_bayar" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Bukti Bayar</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<div class="text-center" id="bukti_bayar_image">
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="tolak_tagihan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<form action="<?=base_url();?>admin/tolak_tagihan" method="post">
+			<div class="modal-header">
+				<h5 class="modal-title">Alasan Penolakan</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="id_sumbangan" name="id_sumbangan">
+				<div class="form-group">
+				  <label for="">Alasan Penolakan</label>
+				  <textarea name="keterangan" required class="form-control" id="" cols="30" rows="3"></textarea>
+				  <small id="helpId" class="text-muted">Alasa Penolakan</small>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+				<button type="submit" class="btn btn-primary">Simpan</button>
+			</div>
+		</form>
+		</div>
+	</div>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelId">
+  Launch
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				Body
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save</button>
+			</div>
 		</div>
 	</div>
 </div>

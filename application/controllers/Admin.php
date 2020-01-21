@@ -84,6 +84,37 @@ class Admin extends CI_Controller
         redirect('admin/tarif_komite');
         //print_r($data);
     }
+    // bukti bayar
+    public function bukti_bayar(Type $var = null)
+    {
+        $id=$this->input->get('id');
+        $response=$this->model->find_data('tb_bukti_bayar','id_sumbangan',$id)->row_array();
+        echo json_encode($response);
+        
+    }
+    // tolak tagihan
+    public function tolak_tagihan(Type $var = null)
+    {
+        $id_sumbangan=$this->input->post('id_sumbangan');
+        $data_tagihan=$this->model->find_data('tb_sumbangan','id_sumbangan',$id_sumbangan)->row_array();
+        $data_user=$this->model->find_data('tb_data_user','nisn',$data_tagihan['nisn'])->row_array();
+        $data=
+        [
+            'keterangan'=>$this->input->post('keterangan'),
+            'id_sumbangan'=>'D'.$id_sumbangan,
+        ];
+        $data_update=
+        [
+            'status'=>'4',
+        ];
+        $pesan='Bukti bayar anda untuk tagihan '.$data_tagihan['jenis_sumbangan'].' Bulan '.$data_tagihan['waktu'].' Tidak Valid';
+        $nomor=$data_user['no_hp'];
+        $this->model->update_data('tb_bukti_bayar','id_sumbangan',$id_sumbangan,$data);
+        $this->model->update_data('tb_sumbangan','id_sumbangan',$id_sumbangan,$data_update);
+        $this->send_sms($pesan,$nomor);
+        $this->session->set_flashdata('success', 'Bukti Bayar Berhasil di tolak');
+        redirect('admin/sumbangan_rutin');
+    }
     // perintah simpan kelas
     public function simpan_kelas($status, $id)
     {

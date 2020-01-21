@@ -94,6 +94,60 @@ class Siswa extends CI_Controller
         }
         $this->menu('siswa/sumbangan_rutin',$data);
     }
+    public function bukti_bayar(Type $var = null)
+    {
+        $id=$this->input->get('id');
+        $response=$this->model->find_data('tb_bukti_bayar','id_sumbangan',$id)->row_array();
+        echo json_encode($response);
+        
+    }
+    public function upload_bukti_bayar()
+    {
+        $foto=$this->upload_foto("bukti_bayar");
+        if ($foto['status']=='0') {
+            $this->session->set_flashdata('error', 'Maaf Foto yang anda upload tidak sesuai kriteria sistem'.$foto['error']);
+            rediect('siswa/sumbangan');
+        } else {
+            $id_sumbangan=$this->input->post('id_sumbangan');
+            
+            $data=
+            [
+                'id_sumbangan'=>$id_sumbangan,
+                'bukti_bayar'=>'upload/'.$foto['error']['bukti_bayar']['file_name'],
+                'keterangan'=>'-',
+            ];
+            $data_update=
+            [
+                'status'=>'3',
+            ];
+            $this->model->create_data('tb_bukti_bayar',$data);
+            $this->model->update_data('tb_sumbangan','id_sumbangan',$id_sumbangan,$data_update);
+            $this->session->set_flashdata('success', 'Bukti Bayar berhasil di upload');
+        redirect('siswa/sumbangan');
+            
+        }
+        
+    }
+    public function upload_foto($name)
+    {
+
+        $config['upload_path'] = './upload/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['encrypt_name'] = true;
+        $this->load->library('upload', $config);
+
+        if (!$this->upload->do_upload($name)) {
+            $error['error'] = $this->upload->display_errors();
+            $error['status'] = '0';
+            return $error;
+        } else {
+            $error['error'] = array($name => $this->upload->data());
+            $error['status'] = '1';
+            return $error;
+        }
+
+    }
+
 }
 
 ?>
