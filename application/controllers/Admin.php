@@ -165,6 +165,94 @@ class Admin extends CI_Controller
 
         $this->menu('admin/data_kelas', $data);
     }
+    // cetak data siswa
+    public function cetak_data_siswa(Type $var = null)
+    {
+
+        
+            $pdf = new FPDF('P', 'mm', 'Legal'); //Ukuran kertas
+            //Membuat halaman baru
+            $pdf->AddPage();
+            //seting jenis font yang di gunakan
+            $pdf->SetFont('Arial', 'B', 16);
+            // $pdf->Cell(20, 40, $pdf->image(base_url() . 'asset/img/rumah_kemasan_b.jpg', 115, 40, 150), 0, 0, 'C');
+            // //mencetak setting
+            // $pdf->Cell(20, 7, $pdf->image(base_url() . 'asset/img/rumah_kemasan.jpg', $pdf->GetX(), $pdf->GetY(), 20), 0, 0, 'C');
+            $pdf->SetFont('Arial', 'B', 15);
+            //mencetak setting
+            $pdf->Cell(210, 6, 'DAFTAR SISWA SMA 1 NEGERI RAMBATAN ', 0, 1, 'C');
+            $pdf->Cell(210, 6, 'TAHUN PELAJARAN 2020/2021' , 0, 1, 'C');
+            $pdf->SetFont('Arial', '', 12);
+            $pdf->Cell(340, 1, '', ':', 0, 1, 'C');
+            $pdf->Cell(300, 5, '', 0, 1, 'C');
+            //Membri spasi kEBawah
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->Cell(140, 8, 'NISN : ' , 0, 0, 'L');
+            $pdf->Cell(200, 8, 'NAMA SISWA', 0, 1, 'R');
+            $pdf->Cell(7, 8, 'TEMPAT LAHIR', 1, 0, 'C');
+            $pdf->Cell(47, 8, 'TANGGAL LAHIR ', 1, 0, 'C');
+            $pdf->Cell(30, 8, 'JENIS KELAMIN ', 1, 0, 'C');
+         
+            $pdf->Cell(10, 8, '', 0, 1, 'C');
+            $pdf->SetFont('Arial', '', 8);
+            $no = 1;
+            $no2 = 1;
+            $data_user = $this->model->find_data('tb_data_user', 'id_siswa','ASC')->result_array();
+            // foreach ($data_user as $row) {
+            //     $data_bayar = $this->model->find_data('tb_tarif', 'id_tarif', $row['id_golongan'])->row_array();
+            //     $data_tagihan = $this->model->find_data('tb_sumbangan', 'nisn', $row['nisn'])->result_array();
+            //     $nomor = $no++;
+
+            //     $pdf->Cell(7, 6, $no2++, 1, 0, 'C');
+            //     $pdf->Cell(47, 6, $row['nama_siswa'], 1, 0, 'C');
+            //     $pdf->Cell(30, 6, "Rp. " . number_format($data_bayar['tarif_komite']), 1, 0, 'C');
+
+            //     foreach ($data_tagihan as $value2) {
+            //         if ($value2['status'] == '-') {
+
+            //             $pdf->Cell(20, 6, '', 1, 0, 'L');
+            //         } else {
+
+            //             $pdf->Cell(20, 6, 'Lunas', 1, 0, 'L');
+            //         }
+
+            //     }
+
+            //     $pdf->Cell(10, 6, '', 0, 1, 'C');
+            //     if ($nomor % 9 == 0) {
+
+            //         $pdf->SetFont('Arial', 'B', 10);
+            //         $pdf->Cell(0, 20, 'Halaman ' . $pdf->PageNo(), 0, 0, 'R');
+
+            //         $pdf->AddPage();
+            //     }
+            // }
+            $pdf->cell(280, 10, '', 0, 0);
+            $pdf->Cell(0, 4, 'Rambatan,' . date('d M Y'), 0, 1);
+            $pdf->cell(280, 4, '', 0, 0);
+            $pdf->Cell(0, 4, 'Bendahara', 0, 1);
+            $pdf->cell(256, 6, '', 0, 0);
+            $pdf->ln(18);
+            $pdf->SetFont('Arial', 'BU', 8);
+            $pdf->cell(280, 6, '', 0, 0);
+            $pdf->Cell(0, 6, 'Yulda,S.Pd', 0, 1);
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->SetFont('Arial', '', 8);
+            $pdf->cell(256, 2, '', 0, 0);
+            $pdf->Cell(0, 1, '', 0, 1);
+            //$pdf->SetFont('Arial','I',8);
+            $pdf->cell(280, 4, '', 0, 1);
+
+            $pdf->Cell(0, 4, 'CATATAN :', 0, 1);
+            $no3 = 1;
+          
+            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->SetY(270);
+            $pdf->Cell(0, 9, 'Halaman ' . $pdf->PageNo(), 0, 1, 'R');
+
+            $pdf->Output();
+
+    }
     public function crud_siswa($status, $id)
     {
 
@@ -222,7 +310,7 @@ class Admin extends CI_Controller
         } elseif ($status == 'edit') {
             $foto = $this->upload_foto('foto_diri');
             if ($foto['status'] == '0') {
-                [
+                $data=[
                     'nama_siswa' => $this->input->post('nama_siswa'),
                     'tanggal_lahir' => $this->input->post('tanggal_lahir'),
                     'tempat_lahir' => $this->input->post('tempat_lahir'),
