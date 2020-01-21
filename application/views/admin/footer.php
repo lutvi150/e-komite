@@ -60,6 +60,46 @@
 
 </script>
 <script> 
+// detail siswa
+$(".detail-siswa").click(function (e) { 
+	let id=$(this).attr("data");
+	$.ajax({
+		type: "GET",
+		url: "<?=base_url();?>admin/data_siswa_json",
+		data: {"id":id},
+		dataType: "JSON",
+		success: function (response) {
+			console.log(response);
+			
+		}
+	});
+});
+// edit siswa
+$(".edit-siswa").click(function (e) { 
+	let id=$(this).attr("data");
+	$.ajax({
+		type: "GET",
+		url: "<?=base_url();?>admin/data_siswa_json",
+		data: {"id":id},
+		dataType: "JSON",
+		success: function (response) {
+			console.log(response);
+			$("#form_siswa").attr("action","<?=base_url();?>admin/crud_siswa/edit/"+id);
+			$("#isi_nisn").html(`<div class="form-group">
+					<label for="">NISN</label>
+					<input type="text" name="nisn" value="`+response.data_siswa.nisn+`" readonly required id="nisn" class="form-control" placeholder="NISN" aria-describedby="helpId">
+					<small id="helpId" class="text-muted"></small>
+				  </div>`)
+			$("#nama_siswa").val(response.data_siswa.nama_siswa);
+			$("#tanggal_lahir").val(response.data_siswa.tanggal_lahir);
+			$("#tempat_lahir").val(response.data_siswa.tempat_lahir);
+			$("#alamat").val(response.data_siswa.alamat);
+			$("#no_hp").val(response.data_siswa.no_hp);
+
+			$("#tambah_siswa").modal("show");
+		}
+	});
+});
 // konfirmasi bayar
 $(".konfirmasi-bayar").click(function (e) { 
 	let id=$(this).attr("data");
@@ -105,7 +145,17 @@ $(".tambah-sumbangan").click(function (e) {
 	});
 // tambah siswa
 $('.tambah-siswa').click(function (e) { 
-	$("#form_siswa").attr('action','<?=base_url();?>admin/crud_siswa/simpan/i')
+	$("#form_siswa").attr('action','<?=base_url();?>admin/crud_siswa/simpan/i');
+	$("#isi_nisn").html(`<div class="form-group">
+					<label for="">NISN</label>
+					<input type="text" name="nisn" value=""  required id="nisn" class="form-control" placeholder="NISN" aria-describedby="helpId">
+					<small id="helpId" class="text-muted"></small>
+				  </div>`)
+	$("#nama_siswa").val("");
+	$("#tanggal_lahir").val("");
+	$("#tempat_lahir").val("");
+	$("#alamat").val("");
+	$("#no_hp").val("");
 	$('#tambah_siswa').modal('show');
 });
 	$('#tanggal_lahir').datepicker

@@ -40,20 +40,20 @@ class Admin extends CI_Controller
             }
             $data['profit'] = array_sum($hasil);
         }
-        $kelas=$this->model->get_data('tb_kelas','id_kelas','ASC');
-        if ($kelas->num_rows()=='0`') {
+        $kelas = $this->model->get_data('tb_kelas', 'id_kelas', 'ASC');
+        if ($kelas->num_rows() == '0`') {
             # code...
-        }else {
-            foreach ($kelas->result_array() as  $value) {
-                $array_kelas[]=$value['nama_kelas'];
-                $array_jumlah[]=$this->model->find_data('tb_data_user','id_kelas',$value['id_kelas'])->num_rows();
+        } else {
+            foreach ($kelas->result_array() as $value) {
+                $array_kelas[] = $value['nama_kelas'];
+                $array_jumlah[] = $this->model->find_data('tb_data_user', 'id_kelas', $value['id_kelas'])->num_rows();
             }
-            $data['kelas']=json_encode($array_kelas);
-            $data['jumlah_siswa']=json_encode($array_jumlah);
+            $data['kelas'] = json_encode($array_kelas);
+            $data['jumlah_siswa'] = json_encode($array_jumlah);
         }
-        $laki=$this->model->find_data('tb_data_user','jenis_kelamin','L')->num_rows();
-        $perempuan=$this->model->find_data('tb_data_user','jenis_kelamin','P')->num_rows();
-        $data['jenis_kelamin']=$laki.",".$perempuan;
+        $laki = $this->model->find_data('tb_data_user', 'jenis_kelamin', 'L')->num_rows();
+        $perempuan = $this->model->find_data('tb_data_user', 'jenis_kelamin', 'P')->num_rows();
+        $data['jenis_kelamin'] = $laki . "," . $perempuan;
         $data['data_murid'] = $this->model->get_data('tb_data_user', 'id_siswa', 'desc')->num_rows();
         //print_r($data);
         $this->load->view('admin/header');
@@ -108,8 +108,8 @@ class Admin extends CI_Controller
     // data siswa json
     public function data_siswa_json(Type $var = null)
     {
-        $id='898989';
-        //$id = $this->input->get('id');
+        //$id='898989';
+        $id = $this->input->get('id');
         $response['data_siswa'] = $this->model->find_data('tb_data_user', 'nisn', $id)->row_array();
         $response['tarif'] = $this->model->find_data('tb_tarif', 'id_tarif', $response['data_siswa']['id_golongan'])->row_array();
         echo json_encode($response);
@@ -147,22 +147,22 @@ class Admin extends CI_Controller
     // view data kelas
     public function data_kelas(Type $var = null)
     {
-        $kelas= $this->model->get_data('tb_kelas', 'id_kelas', 'DESC');
-        if ($kelas->num_rows()=='0') {
-           $data['status_data']='0';
+        $kelas = $this->model->get_data('tb_kelas', 'id_kelas', 'DESC');
+        if ($kelas->num_rows() == '0') {
+            $data['status_data'] = '0';
         } else {
-           $data['status_data']='1';
-           foreach ($kelas->result_array() as  $value) {
-               $hasil[]=
-               [
-                   "id_kelas"=>$value['id_kelas'],
-                   'nama_kelas'=>$value['nama_kelas'],
-                   'jumlah_kelas'=>$this->model->find_data('tb_data_user','id_kelas',$value['id_kelas'])->num_rows(),
-               ];
-           }
-           $data['kelas']=$hasil;
+            $data['status_data'] = '1';
+            foreach ($kelas->result_array() as $value) {
+                $hasil[] =
+                    [
+                    "id_kelas" => $value['id_kelas'],
+                    'nama_kelas' => $value['nama_kelas'],
+                    'jumlah_kelas' => $this->model->find_data('tb_data_user', 'id_kelas', $value['id_kelas'])->num_rows(),
+                ];
+            }
+            $data['kelas'] = $hasil;
         }
-        
+
         $this->menu('admin/data_kelas', $data);
     }
     public function crud_siswa($status, $id)
@@ -175,55 +175,82 @@ class Admin extends CI_Controller
                 $this->session->set_flashdata('error', 'Maaf NISN sudah terdaftar');
                 redirect('admin/data_siswa');
             } else {
-                $id_golongan=$this->input->post('id_golongan');
-                
-                if ($id_golongan==null) {
+                $id_golongan = $this->input->post('id_golongan');
+
+                if ($id_golongan == null) {
                     $this->session->set_flashdata('error', 'Maaf golongan belum anda pilih' . $foto['error']);
-    
+
                     redirect('admin/data_siswa');
                 } else {
-                    
-                $id_kelas=$this->input->post('id_kelas');
-                    if ($id_kelas==null) {
+
+                    $id_kelas = $this->input->post('id_kelas');
+                    if ($id_kelas == null) {
                         $this->session->set_flashdata('error', 'Maaf golongan belum anda pilih' . $foto['error']);
-    
+
                         redirect('admin/data_siswa');
                     } else {
                         $foto = $this->upload_foto('foto_diri');
-                    if ($foto['status'] == '0') {
-                        $this->session->set_flashdata('error', 'Maaf Foto yang anda upload tidak sesui kriteri sistem' . $foto['error']);
-    
-                        redirect('admin/data_siswa');
-                    } else {
-                        $data =
-                            [
-                            'nisn' => $nisn,
-                            'nama_siswa' => $this->input->post('nama_siswa'),
-                            'tanggal_lahir' => $this->input->post('tanggal_lahir'),
-                            'tempat_lahir' => $this->input->post('tempat_lahir'),
-                            'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-                            'alamat' => $this->input->post('alamat'),
-                            'id_kelas' => $this->input->post('id_kelas'),
-                            'id_golongan' => $this->input->post('id_golongan'),
-                            'status_akun_user' => '0',
-                            'no_hp' => $this->input->post('no_hp'),
-                            'foto_siswa' => 'upload/' . $foto['error']['foto_diri']['file_name'],
-                        ];
-                        //print_r($data);
-                        $this->model->create_data('tb_data_user', $data);
-                        $this->session->set_flashdata('success', 'Data Siswa Berhasil di tambahkan');
+                        if ($foto['status'] == '0') {
+                            $this->session->set_flashdata('error', 'Maaf Foto yang anda upload tidak sesui kriteri sistem' . $foto['error']);
+
+                            redirect('admin/data_siswa');
+                        } else {
+                            $data =
+                                [
+                                'nisn' => $nisn,
+                                'nama_siswa' => $this->input->post('nama_siswa'),
+                                'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                                'tempat_lahir' => $this->input->post('tempat_lahir'),
+                                'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                                'alamat' => $this->input->post('alamat'),
+                                'id_kelas' => $this->input->post('id_kelas'),
+                                'id_golongan' => $this->input->post('id_golongan'),
+                                'status_akun_user' => '0',
+                                'no_hp' => $this->input->post('no_hp'),
+                                'foto_siswa' => 'upload/' . $foto['error']['foto_diri']['file_name'],
+                            ];
+                            //print_r($data);
+                            $this->model->create_data('tb_data_user', $data);
+                            $this->session->set_flashdata('success', 'Data Siswa Berhasil di tambahkan');
+                        }
                     }
-                    }
-                    
-                  
+
                 }
-                
-                
+
             }
 
         } elseif ($status == 'edit') {
-            $this->model->update_data('tb_data_user', 'id_siswa', $id, $data);
+            $foto = $this->upload_foto('foto_diri');
+            if ($foto['status'] == '0') {
+                [
+                    'nama_siswa' => $this->input->post('nama_siswa'),
+                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                    'tempat_lahir' => $this->input->post('tempat_lahir'),
+                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                    'alamat' => $this->input->post('alamat'),
+                    'id_kelas' => $this->input->post('id_kelas'),
+                    'id_golongan' => $this->input->post('id_golongan'),
+                    'no_hp' => $this->input->post('no_hp'),
+                ];
+                $this->model->update_data('tb_data_user', 'nisn', $id, $data);
+                $this->session->set_flashdata('success', 'Data Siswa Berhasil di Ubah');
+            } else {
+                $data =
+                    [
+                    'nama_siswa' => $this->input->post('nama_siswa'),
+                    'tanggal_lahir' => $this->input->post('tanggal_lahir'),
+                    'tempat_lahir' => $this->input->post('tempat_lahir'),
+                    'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+                    'alamat' => $this->input->post('alamat'),
+                    'id_kelas' => $this->input->post('id_kelas'),
+                    'id_golongan' => $this->input->post('id_golongan'),
+                    'no_hp' => $this->input->post('no_hp'),
+                    'foto_siswa' => 'upload/' . $foto['error']['foto_diri']['file_name'],
+                ];
+                $this->model->update_data('tb_data_user', 'nisn', $id, $data);
             $this->session->set_flashdata('success', 'Data Siswa Berhasil di Ubah');
+            }
+          
         } elseif ($status == 'hapus') {
             $this->model->delete_data('tb_data_user', 'id_siswa', $id);
             $this->model->delete_data('tb_user', 'username', $id);
@@ -333,18 +360,18 @@ class Admin extends CI_Controller
     // simpan transaksi
     public function simpan_transaksi(Type $var = null)
     {
-        $keterangan=$this->input->post('keterangan');
-        $nominal=$this->input->post('nominal');
-        $jenis=$this->input->post('jenis');
-        
-        $data=
-        [
-            'tgl_transaksi'=>date('d-m-Y'),
-            'keterangan'=>$keterangan,
-            'jumlah'=>$nominal,
-            'jenis'=>$jenis,
+        $keterangan = $this->input->post('keterangan');
+        $nominal = $this->input->post('nominal');
+        $jenis = $this->input->post('jenis');
+
+        $data =
+            [
+            'tgl_transaksi' => date('d-m-Y'),
+            'keterangan' => $keterangan,
+            'jumlah' => $nominal,
+            'jenis' => $jenis,
         ];
-        $this->model->create_data('tb_transaksi',$data);
+        $this->model->create_data('tb_transaksi', $data);
         $this->session->set_flashdata('success', 'Transaksi Sukses di tambahkan');
         redirect('admin/transaksi');
     }
@@ -355,37 +382,37 @@ class Admin extends CI_Controller
         $this->session->set_flashdata('success', 'Data berhasil di hapus');
         redirect('admin/sumbangan_rutin');
     }
-      // hapus sumbangan
-      public function hapus_sumbangan_i($id_sumbangan)
-      {
-          $this->model->delete_data('tb_sumbangan', 'id_sumbangan', $id_sumbangan);
-          $this->session->set_flashdata('success', 'Data berhasil di hapus');
-          redirect('admin/sumbangan_isi');
-      }
+    // hapus sumbangan
+    public function hapus_sumbangan_i($id_sumbangan)
+    {
+        $this->model->delete_data('tb_sumbangan', 'id_sumbangan', $id_sumbangan);
+        $this->session->set_flashdata('success', 'Data berhasil di hapus');
+        redirect('admin/sumbangan_isi');
+    }
     // sumbangan isdentil persiswa
     public function transaksi(Type $var = null)
     {
-        $data['transaksi']=$this->model->get_data('tb_transaksi','id_transaksi','DESC')->result_array();
-        $debit=$this->model->find_data('tb_transaksi','jenis','Debit');
-        if ($debit->num_rows()=='0') {
-            $data['jumlah_debit']='0';
+        $data['transaksi'] = $this->model->get_data('tb_transaksi', 'id_transaksi', 'DESC')->result_array();
+        $debit = $this->model->find_data('tb_transaksi', 'jenis', 'Debit');
+        if ($debit->num_rows() == '0') {
+            $data['jumlah_debit'] = '0';
         } else {
-            foreach ($debit->result_array() as  $value) {
-                $hasil[]=$value['jumlah'];
+            foreach ($debit->result_array() as $value) {
+                $hasil[] = $value['jumlah'];
             }
-            $data['jumlah_debit']=array_sum($hasil);
+            $data['jumlah_debit'] = array_sum($hasil);
         }
-        $kredit=$this->model->find_data('tb_transaksi','jenis','Kredit');
-        if ($kredit->num_rows()=='0') {
-            $data['jumlah_kredit']='0';
+        $kredit = $this->model->find_data('tb_transaksi', 'jenis', 'Kredit');
+        if ($kredit->num_rows() == '0') {
+            $data['jumlah_kredit'] = '0';
         } else {
-            foreach ($kredit->result_array() as  $value) {
-                $hasil2[]=$value['jumlah'];
+            foreach ($kredit->result_array() as $value) {
+                $hasil2[] = $value['jumlah'];
             }
-            $data['jumlah_kredit']=array_sum($hasil2);
+            $data['jumlah_kredit'] = array_sum($hasil2);
         }
-        
-        $this->menu('admin/transaksi',$data);
+
+        $this->menu('admin/transaksi', $data);
     }
     public function tambah_sumbangan_k($status)
     {
@@ -451,10 +478,10 @@ class Admin extends CI_Controller
                         $nomor = $value['no_hp'];
                         $this->send_sms($pesan, $nomor);
                         $this->model->create_data('tb_sumbangan', $data);
-                        
+
                     }
                     $this->session->set_flashdata('success', 'Sumbangan isidentil Berhasil di Buat');
-                        redirect('admin/sumbangan_isi');
+                    redirect('admin/sumbangan_isi');
                 }
 
             }
@@ -477,8 +504,8 @@ class Admin extends CI_Controller
     {
         $tahun = $this->input->post('tahun');
         $nisn = $this->input->post('nisn');
-        $total=$this->input->post('jumlah');
-        
+        $total = $this->input->post('jumlah');
+
         if ($tahun == null) {
             $this->session->set_flashdata('error', 'Maaf Bulan atau taahun tidak boleh kosong');
             redirect('admin/sumbangan_isidentil');
@@ -555,7 +582,7 @@ class Admin extends CI_Controller
         } else {
             $data['status_data'] = '1';
             foreach ($sumbangan->result_array() as $value) {
-                
+
                 $data_siswa = $this->model->find_data('tb_data_user', 'nisn', $value['nisn'])->row_array();
                 $data_kelas = $this->model->find_data('tb_kelas', 'id_kelas', $data_siswa['id_kelas'])->row_array();
                 $tarif_komite = $this->model->find_data('tb_tarif', 'id_tarif', $data_siswa['id_golongan'])->row_array();
@@ -563,7 +590,7 @@ class Admin extends CI_Controller
                     'id_sumbangan' => $value['id_sumbangan'],
                     'jenis_sumbangan' => $value['jenis_sumbangan'],
                     'nisn' => $value['nisn'],
-                    'waktu' => "Tahun ".$value['waktu'],
+                    'waktu' => "Tahun " . $value['waktu'],
                     'status' => $value['status'],
                     'tgl_bayar' => $value['tgl_bayar'],
                     'nama_siswa' => $data_siswa['nama_siswa'],
@@ -698,8 +725,6 @@ class Admin extends CI_Controller
                 $pdf->Cell(340, 4, $no3++ . '. ' . $value['keterangan_komite'] . " sumbangan rutin Rp. " . number_format($value['tarif_komite']), 0, 1, '');
             }
 
-           
-    
             $pdf->SetFont('Arial', 'B', 10);
             $pdf->SetY(270);
             $pdf->Cell(0, 9, 'Halaman ' . $pdf->PageNo(), 0, 1, 'R');

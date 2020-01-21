@@ -61,7 +61,8 @@
                         
 						<div class="portlet-body">
                             
-                            <a href="#" class="btn btn-success btn-sm tambah-siswa"><i class="fa fa-plus"></i>Tambah Siswa</a>
+							<a href="#" class="btn btn-success btn-sm tambah-siswa"><i class="fa fa-plus"></i>Tambah Siswa</a>
+							<a href="<?=base_url();?>admin/cetak_data_siswa" class="btn btn-warning btn-sm " target="_blank"><i class="fa fa-print"></i> Cetak Data</a>
                             <?php if ($this->session->userdata('error')):?>
 						<div id="message_error" class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -112,8 +113,8 @@
                                    </td>
                                    <td>
                                    <a href="#" data="<?=base_url();?>admin/crud_siswa/hapus/<?=$value['id_siswa']?>" class="btn btn-danger btn-sm modal-hapus" ><i class="fa fa-trash"></i></a>
-                                   <a href="#" data="" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
-                                   <a href="#" data="" class="btn btn-info btn-sm "><i class="fa fa-search"></i></a>
+                                   <a href="#" data="<?=$value['nisn']?>" class="btn btn-warning btn-sm edit-siswa"><i class="fa fa-edit"></i></a>
+                                   
                                    </td>
                                </tr>
 							<?php endforeach;?>
@@ -143,11 +144,9 @@
                     </button>
             </div>
             <div class="modal-body">
-               <div class="form-group">
-                 <label for="">NISN</label>
-                 <input type="text" name="nisn" required id="nisn" class="form-control" placeholder="NISN" aria-describedby="helpId">
-                 <small id="helpId" class="text-muted"></small>
-               </div>
+              <div id="isi_nisn">
+				
+			  </div>
                <div class="form-group">
                  <label for="">Nama Siswa</label>
                 <input type="text" name="nama_siswa" class="form-control" id="nama_siswa" required placeholder="Nama Siswa">
