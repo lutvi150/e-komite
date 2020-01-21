@@ -101,7 +101,7 @@ class Admin extends CI_Controller
         $data=
         [
             'keterangan'=>$this->input->post('keterangan'),
-            'id_sumbangan'=>'D'.$id_sumbangan,
+            //'id_sumbangan'=>'D'.$id_sumbangan,
         ];
         $data_update=
         [

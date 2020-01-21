@@ -60,6 +60,21 @@
 
 </script>
 <script> 
+// alasan penolakan
+$(".bukti-tolak").click(function (e) { 
+	let id=$(this).attr("data");
+	$.ajax({
+		type: "GET",
+		url: "<?=base_url();?>admin/bukti_bayar",
+		data: {"id":id},
+		dataType: "JSON",
+		success: function (response) {
+			console.log(id);
+	$("#alasan").text(response.keterangan);
+	$("#alasan_penolakan").modal("show");
+		}
+	});
+});
 // tolak tagihan
 $(".tolak-tagihan").click(function (e) {
 	let id=$(this).attr("data");

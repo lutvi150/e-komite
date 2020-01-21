@@ -128,6 +128,24 @@ class Siswa extends CI_Controller
         }
         
     }
+    public function upload_ulang(Type $var = null)
+    {
+        $id_sumbangan=$this->input->post('id_sumbangan');
+      
+        $data=
+        [
+            //'keterangan'=>$this->input->post('keterangan'),
+            'id_sumbangan'=>'D'.$id_sumbangan,
+        ];
+        $data_update=
+        [
+            'status'=>'-',
+        ];
+        $this->model->update_data('tb_bukti_bayar','id_sumbangan',$id_sumbangan,$data);
+        $this->model->update_data('tb_sumbangan','id_sumbangan',$id_sumbangan,$data_update);
+        $this->session->set_flashdata('success', 'Silahkan di upload ulang bukti bayar anda');
+        redirect('siswa/sumbangan');
+    }
     public function upload_foto($name)
     {
 

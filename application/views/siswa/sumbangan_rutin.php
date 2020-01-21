@@ -118,6 +118,8 @@
 			<?php elseif($value['status']=='3'): ?>
 				<a href="#" class="label label-warning"><i class="fa fa-warning"></i>Konfirmasi Admin</a>
 				<a href="#" data="<?=$value['id_sumbangan']?>" class="label label-info bukti-bayar"><i class="fa fa-image"></i>Bukti Bayar</a>
+				<?php elseif ($value['status']=='4'):?>
+				<a href="#" data="<?=$value['id_sumbangan']?>" class="label label-danger bukti-tolak"><i class="fa fa-envelope"></i>Di tolak</a>
 			<?php endif; ?>
 	</td>
 </tr>
@@ -242,6 +244,31 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
 			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="alasan_penolakan" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form action="<?=base_url();?>siswa/upload_ulang" method="post">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Alasan Penolakan</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="id_sumbangan_ulang" name="id_sumbangan">
+				<div id="alasan"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i>Upload Ulang</button>
+			</div>
+			</form>
 		</div>
 	</div>
 </div>

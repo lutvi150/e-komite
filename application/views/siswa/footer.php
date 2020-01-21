@@ -60,6 +60,23 @@
 
 </script>
 <script>
+	// alasan penolakan
+$(".bukti-tolak").click(function (e) { 
+	let id=$(this).attr("data");
+	$.ajax({
+		type: "GET",
+		url: "<?=base_url();?>siswa/bukti_bayar",
+		data: {"id":id},
+		dataType: "JSON",
+		success: function (response) {
+			console.log(id);
+			$("#id_sumbangan_ulang").val(response.id_sumbangan);
+	$("#alasan").text(response.keterangan);
+	$("#alasan_penolakan").modal("show");
+		}
+	});
+});
+// tolak tagiha
 	// bukti bayara
 	$(".bukti-bayar").click(function (e) { 
 		let id=$(this).attr('data');
