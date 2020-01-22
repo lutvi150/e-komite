@@ -106,7 +106,7 @@ class Siswa extends CI_Controller
         $foto=$this->upload_foto("bukti_bayar");
         if ($foto['status']=='0') {
             $this->session->set_flashdata('error', 'Maaf Foto yang anda upload tidak sesuai kriteria sistem'.$foto['error']);
-            rediect('siswa/sumbangan');
+            redirect('siswa/sumbangan');
         } else {
             $id_sumbangan=$this->input->post('id_sumbangan');
             
