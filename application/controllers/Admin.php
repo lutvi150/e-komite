@@ -281,6 +281,9 @@ class Admin extends CI_Controller
         'status' => '1',
         'tgl_bayar' => date('d-m-Y'),
     ];
+    $pesan = "Sumbangan Komite Rutin anda Bulan " . $bulan . " tahun " . $tahun . " Rp. " . number_format($tarif['tarif_komite']);
+    $nomor = $value['no_hp'];
+    $this->send_sms($pesan, $nomor);
     $this->model->update_data('tb_sumbangan', 'id_sumbangan', $id, $data);
     $this->session->set_flashdata('success', 'Konfirmasi Pembayaran Berhasil');
     redirect('admin/sumbangan_rutin');
@@ -608,14 +611,20 @@ class Admin extends CI_Controller
         }
     }
     // konfirmasi bayar rutin
-    public function bayar_sumbangan_rutin($id)
+    public function bayar_sumbangan_rutin($id_sumbangan)
     {
         $data =
             [
             'status' => '1',
             'tgl_bayar' => date('d-m-Y'),
         ];
-        $this->model->update_data('tb_sumbangan', 'id_sumbangan', $id, $data);
+        $data_tagihan=$this->model->find_data('tb_sumbangan','id_sumbangan',$id_sumbangan)->row_array();
+        $data_user=$this->model->find_data('tb_data_user','nisn',$data_tagihan['nisn'])->row_array();
+       
+        $pesan='Bukti bayar anda untuk tagihan '.$data_tagihan['jenis_sumbangan'].' Bulan '.$data_tagihan['waktu'].' Tidak Valid';
+        $nomor=$data_user['no_hp'];
+        $this->send_sms($pesan,$nomor);
+        $this->model->update_data('tb_sumbangan', 'id_sumbangan', $id_sumbangan, $data);
         $this->session->set_flashdata('success', 'Konfirmasi Pembayaran Berhasil');
         redirect('admin/sumbangan_rutin');
     }
