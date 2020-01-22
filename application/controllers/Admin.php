@@ -284,6 +284,19 @@ class Admin extends CI_Controller
             $pdf->Output();
 
     }
+    // konfirmasi tagihan
+    public function konfirmasi_tagihan(Type $var = null)
+    {
+        $id=$this->input->post('id_sumbangan');
+        $data =
+        [
+        'status' => '1',
+        'tgl_bayar' => date('d-m-Y'),
+    ];
+    $this->model->update_data('tb_sumbangan', 'id_sumbangan', $id, $data);
+    $this->session->set_flashdata('success', 'Konfirmasi Pembayaran Berhasil');
+    redirect('admin/sumbangan_rutin');
+    }
     public function crud_siswa($status, $id)
     {
 
@@ -757,36 +770,48 @@ class Admin extends CI_Controller
             $pdf->Cell(7, 8, 'No', 1, 0, 'C');
             $pdf->Cell(47, 8, 'Nama Siswa ', 1, 0, 'C');
             $pdf->Cell(30, 8, 'Jumlah Bayar ', 1, 0, 'C');
-            $data_bulan = $this->model->data_bulan($tahun)->result_array();
-            foreach ($data_bulan as $value) {
-                $w_su = substr($value['waktu'], 0, 1);
-                if ($w_su == '1') {
-                    $bulan_c = "Januari ";
-                } elseif ($w_su == '2') {
-                    $bulan_c = "Feruari ";
-                } elseif ($w_su == '12') {
-                    $bulan_c = "Desember ";
-                } elseif ($w_su == '3') {
-                    $bulan_c = "Maret ";
-                } elseif ($w_su == '4') {
-                    $bulan_c = "April ";
-                } elseif ($w_su == '5') {
-                    $bulan_c = "Mei ";
-                } elseif ($w_su == '6') {
-                    $bulan_c = "Juni ";
-                } elseif ($w_su == '7') {
-                    $bulan_c = "Juli ";
-                } elseif ($w_su == '8') {
-                    $bulan_c = "Agustus ";
-                } elseif ($w_su == '9') {
-                    $bulan_c = "September ";
-                } elseif ($w_su == '10') {
-                    $bulan_c = "Oktober ";
-                } elseif ($w_su == '11') {
-                    $bulan_c = "November ";
-                }
-                $pdf->Cell(20, 8, $bulan_c, 1, 0, 'C');
-            }
+            $pdf->Cell(20, 8, "Januari", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Februari", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Maret", 1, 0, 'C');
+            $pdf->Cell(20, 8, "April", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Mei", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Juni", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Juli", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Agustus", 1, 0, 'C');
+            $pdf->Cell(20, 8, "September", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Oktober", 1, 0, 'C');
+            $pdf->Cell(20, 8, "November", 1, 0, 'C');
+            $pdf->Cell(20, 8, "Desember", 1, 0, 'C');    
+            // $data_bulan = $this->model->data_bulan($tahun)->result_array();
+            // foreach ($data_bulan as $value) {
+            //     $w_su = substr($value['waktu'], 0, 1);
+            //     if ($w_su == '1') {
+            //         $bulan_c = "Januari ";
+            //     } elseif ($w_su == '2') {
+            //         $bulan_c = "Feruari ";
+            //     } elseif ($w_su == '12') {
+            //         $bulan_c = "Desember ";
+            //     } elseif ($w_su == '3') {
+            //         $bulan_c = "Maret ";
+            //     } elseif ($w_su == '4') {
+            //         $bulan_c = "April ";
+            //     } elseif ($w_su == '5') {
+            //         $bulan_c = "Mei ";
+            //     } elseif ($w_su == '6') {
+            //         $bulan_c = "Juni ";
+            //     } elseif ($w_su == '7') {
+            //         $bulan_c = "Juli ";
+            //     } elseif ($w_su == '8') {
+            //         $bulan_c = "Agustus ";
+            //     } elseif ($w_su == '9') {
+            //         $bulan_c = "September ";
+            //     } elseif ($w_su == '10') {
+            //         $bulan_c = "Oktober ";
+            //     } elseif ($w_su == '11') {
+            //         $bulan_c = "November ";
+            //     }
+            //     $pdf->Cell(20, 8, $bulan_c, 1, 0, 'C');
+            // }
             $pdf->Cell(10, 8, '', 0, 1, 'C');
             $pdf->SetFont('Arial', '', 8);
             $no = 1;
@@ -794,14 +819,14 @@ class Admin extends CI_Controller
             $data_user = $this->model->find_data('tb_data_user', 'id_kelas', $kelas)->result_array();
             foreach ($data_user as $row) {
                 $data_bayar = $this->model->find_data('tb_tarif', 'id_tarif', $row['id_golongan'])->row_array();
-                $data_tagihan = $this->model->find_data('tb_sumbangan', 'nisn', $row['nisn'])->result_array();
+                $data_tagihan = $this->model->find_data('tb_sumbangan', 'nisn', $row['nisn']);
                 $nomor = $no++;
 
                 $pdf->Cell(7, 6, $no2++, 1, 0, 'C');
                 $pdf->Cell(47, 6, $row['nama_siswa'], 1, 0, 'C');
                 $pdf->Cell(30, 6, "Rp. " . number_format($data_bayar['tarif_komite']), 1, 0, 'C');
-
-                foreach ($data_tagihan as $value2) {
+                $table_kosong=12-$data_tagihan->num_rows();
+                foreach ($data_tagihan->result_array() as $value2) {
                     if ($value2['status'] == '-') {
 
                         $pdf->Cell(20, 6, '', 1, 0, 'L');
@@ -810,6 +835,9 @@ class Admin extends CI_Controller
                         $pdf->Cell(20, 6, 'Lunas', 1, 0, 'L');
                     }
 
+                }
+                for ($i=1; $i <=$table_kosong ; $i++) { 
+                    $pdf->Cell(20, 6, '', 1, 0, 'L');
                 }
 
                 $pdf->Cell(10, 6, '', 0, 1, 'C');

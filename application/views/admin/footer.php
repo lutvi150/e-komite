@@ -60,6 +60,12 @@
 
 </script>
 <script> 
+// konfirmasi tagihan
+$(".konfirmasi-tagihan").click(function (e) { 
+	let id=$(this).attr("data");
+	$("#id_sumbangan_konfirmasi").val(id);
+	$("#modal_konfirmasi_tagihan").modal("show");
+});
 // alasan penolakan
 $(".bukti-tolak").click(function (e) { 
 	let id=$(this).attr("data");
