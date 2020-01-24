@@ -47,7 +47,18 @@ class Controller extends CI_Controller
                 if ($level == 'admin') {
                     redirect('admin');
                 } elseif ($level == 'siswa') {
+                    $username=$this->session->userdata('username');
+                    $check_data=$this->model->find_data('tb_data_user','nisn',$username)->row_array();
+                    //print_r($check_data);
+                    if ($check_data['status_akun_user']=='0') {
+                        $this->session->sess_destroy();
+                        $this->session->set_flashdata('error', 'Akun anda di NonAktikan Admin');
+                       redirect('controller');
+                    } else {
+                        
                     redirect('siswa');
+                    }
+                    
                 }
             }
 

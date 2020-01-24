@@ -60,6 +60,14 @@
 
 </script>
 <script> 
+// nonaktifkan
+$(".nonaktifkan-user").click(function (e) { 
+	let id=$(this).attr("data");
+	$('#judul_aktifkan').text('Konfirmasi');
+	$('#isi_aktifkan').text('Yakin akan nonaktifkan user ini ? ');
+	$('#form_aktifkan').attr('action',id);
+	$('#aktifkan_user').modal('show');
+});
 // konfirmasi tagihan
 $(".konfirmasi-tagihan").click(function (e) { 
 	let id=$(this).attr("data");

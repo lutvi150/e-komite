@@ -107,7 +107,7 @@
 									   <?php if ($value['status_akun_user']=='0') :?>
 									   <a href="#" data="<?=base_url();?>admin/crud_siswa/aktifkan/<?=$value['nisn']?>" class="label label-danger aktifkan-user"><i class="fa fa-ban"></i>Tidak Aktif</a>
 									   <?php elseif ($value['status_akun_user']=='1') :?>
-									   <a href="#" class="label label-success nonaktifkan-user"><i class="fa fa-check"></i>Aktif</a>
+									   <a href="#" class="label label-success nonaktifkan-user" data="<?=base_url();?>admin/crud_siswa/nonaktifkan/<?=$value['nisn']?>"><i class="fa fa-check"></i>Aktif</a>
 									   <?php endif; ?>
                                    </td>
                                    <td>

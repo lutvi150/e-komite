@@ -398,11 +398,35 @@ class Admin extends CI_Controller
                 $this->model->update_data('tb_data_user', 'nisn', $data_diri['nisn'], $data_update);
                 $this->session->set_flashdata('success', 'Akun berhasil di aktifkan');
             } else {
-                # code...
+                $data_update =
+                    [
+                    'status_akun_user' => '1',
+                ];
+                $data_user=
+                [
+                    'status_akun'=>'0'
+                ];
+                $this->model->update_data('tb_user','username',$id,$data_user);
+                $this->model->update_data('tb_data_user', 'nisn', $id, $data_update);
+                $this->session->set_flashdata('success', 'Akun berhasil di aktifkan');
             }
 
         }
-        redirect('admin/data_siswa');
+        elseif ($status=='nonaktifkan') {
+        $data=
+        [
+            'status_akun_user'=>'0'
+        ];
+        $data_user=
+        [
+            'status_akun'=>'0'
+        ];
+        $this->model->update_data('tb_user','username',$id,$data_user);
+        $this->model->update_data('tb_data_user','nisn',$id,$data);
+        $this->session->set_flashdata('success', 'Akun berhasil di nonaktifkan');
+        
+        }
+       redirect('admin/data_siswa');
     }
     public function upload_foto($name)
     {

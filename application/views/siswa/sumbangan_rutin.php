@@ -115,6 +115,7 @@
 				<a href="#" class="label label-success bayar-tagihan" data="<?=$value['id_sumbangan']?>"><i class="fa fa-money"></i>Bayar Tagihan</a>
 			<?php elseif ($value['status']=='1'):?>
 			<a href="#" class="label label-success"><i class="fa fa-check"></i>Lunas</a>
+			<a href="<?=base_url();?>siswa/cetak_bukti_bayar/<?=$value['id_sumbangan']?>" class="label label-warning" target="_blank"><i class="fa fa-print"></i>Print</a>
 			<?php elseif($value['status']=='3'): ?>
 				<a href="#" class="label label-warning"><i class="fa fa-warning"></i>Konfirmasi Admin</a>
 				<a href="#" data="<?=$value['id_sumbangan']?>" class="label label-info bukti-bayar"><i class="fa fa-image"></i>Bukti Bayar</a>
