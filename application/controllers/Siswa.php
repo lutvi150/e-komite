@@ -5,6 +5,8 @@ class Siswa extends CI_Controller
     {
         parent::__construct();
         date_default_timezone_set('Asia/Jakarta');
+        $this->load->library('pdf');
+        
         if ($this->session->userdata('logged_in') !== true) {
             $this->session->set_flashdata('error', 'Maaf hak akses anda di tolak');
             redirect('controller');
@@ -164,6 +166,71 @@ class Siswa extends CI_Controller
             return $error;
         }
 
+    }
+    public function cetak_bukti_bayar($id_sumbangan)
+    {
+        $sumbangan=$this->model->find_data('tb_sumbangan','id_sumbangan',$id_sumbangan)->row_array();
+        $siswa=$this->model->find_data('tb_data_user','nisn',$sumbangan['nisn'])->row_array();
+        $kelas=$this->model->find_data('tb_kelas','id_kelas',$siswa['id_kelas'])->row_array();
+          
+        $pdf = new FPDF('l', 'mm', 'A5'); //Ukuran kertas
+        //Membuat halaman baru
+        $pdf->AddPage();
+        //seting jenis font yang di gunakan
+        $pdf->SetFont('Times', 'B', 16);
+        $pdf->Cell(20, 7, $pdf->image(base_url() . 'asset/images/4.png', $pdf->GetX(), $pdf->GetY(), 20), 0, 0, 'C');
+        $pdf->SetFont('Times', 'B', 15);
+        //mencetak setting
+        $pdf->Cell(170, 6, 'DINAS PENDIDIKAN SUMATERA BARAT', 0, 1, 'C');
+        $pdf->Cell(210, 6, 'UPT SMA NEGERI 1 RAMBATAN ', 0, 1, 'C');
+        $pdf->Cell(210, 6, 'KABUPATEN TANAH DATAR', 0, 1, 'C');
+        $pdf->SetFont('Times', 'BI',8);
+        $pdf->Cell(20, 6, '', 0, 0, 'L');
+        $pdf->Cell(75, 6, 'Alamat: Simpang Gobah Rambatan', 0, 0, 'L');
+        $pdf->Cell(100, 6, 'Kode Pos: 27271', 0, 1, 'R');
+        $pdf->SetFont('Times', '', 12);
+        $pdf->Cell(210, 0, '', 0, 1, 'C');
+        $pdf->Cell(195, 1, '', ':', 0, 1, 'C');
+        $pdf->Cell(210, 5, '', 0, 1, 'C');
+        //Membri spasi kEBawah
+        $pdf->SetFont('Times', 'B', 10);
+        $pdf->Cell(210, 8, 'BUKTI PENYETORAN UANG' , 0, 1, 'C');
+        $pdf->SetFont('Times', '', 10);
+        $pdf->Cell(210, 6, 'Telah diterima uang untuk keperluan :' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'NISN ' , 0, 0, 'L   ');        
+        $pdf->Cell(70, 4, $siswa['nisn'], 1, 1, 'L   ');
+        $pdf->Cell(40, 2, ' ' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'Nama Siswa ' , 0, 0, 'L   ');
+        $pdf->Cell(70, 4, $siswa['nama_siswa'] , 1, 1, 'L   ');
+        $pdf->Cell(40, 2, ' ' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'Kelas ' , 0, 0, 'L   ');
+        $pdf->Cell(70, 4,  $kelas['nama_kelas'], 1, 1, 'L   ');
+        $pdf->Cell(40, 2, ' ' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'Jenis Sumbangan ' , 0, 0, 'L   ');
+        $pdf->Cell(70, 4, $sumbangan['jenis_sumbangan'] , 1, 1, 'L   ');
+        $pdf->Cell(40, 2, ' ' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'Nominal ' , 0, 0, 'L   ');
+        $pdf->Cell(70, 4, 'Rp. '.number_format($sumbangan['total']) , 1, 1, 'L   ');
+        $pdf->Cell(40, 2, ' ' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'Tanggal Bayar ' , 0, 0, 'L   ');
+        $pdf->Cell(70, 4, $sumbangan['tgl_bayar'] , 1, 1, 'L   ');
+        $pdf->Cell(40, 2, ' ' , 0, 1, 'L   ');
+        $pdf->Cell(40, 4, 'Keterangan ' , 0, 0, 'L   ');
+        $pdf->Cell(70, 4, '-' , 1, 1, 'L   ');
+         $pdf->SetFont('Times', '', 10);
+       
+        $pdf->Cell(150,4,'',0,0);
+        $pdf->cell(70, 4, 'Simpang Gobah '.date('d-m-Y'), 0, 1,'L');
+        $pdf->Cell(165,4,'',0,0);
+        $pdf->cell(70, 4, 'Petugas', 0, 1,'L');
+        $pdf->cell(256, 6, '', 0, 0);
+        $pdf->ln(18);
+        $pdf->SetFont('Times', 'BU', 10);
+        $pdf->Cell(150,4,'',0,0);
+        $pdf->cell(70, 6, '(...........................................)', 0, 0,'L');
+     
+
+        $pdf->Output();        
     }
 
 }

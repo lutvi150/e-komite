@@ -773,19 +773,27 @@ class Admin extends CI_Controller
             //Membuat halaman baru
             $pdf->AddPage();
             //seting jenis font yang di gunakan
-            $pdf->SetFont('Arial', 'B', 16);
+            $pdf->SetFont('Times', 'B', 16);
             // $pdf->Cell(20, 40, $pdf->image(base_url() . 'asset/img/rumah_kemasan_b.jpg', 115, 40, 150), 0, 0, 'C');
             // //mencetak setting
-            // $pdf->Cell(20, 7, $pdf->image(base_url() . 'asset/img/rumah_kemasan.jpg', $pdf->GetX(), $pdf->GetY(), 20), 0, 0, 'C');
-            $pdf->SetFont('Arial', 'B', 15);
+            $pdf->Cell(20, 7, $pdf->image(base_url() . 'asset/images/4.png', $pdf->GetX(), $pdf->GetY(), 20), 0, 0, 'C');
+            $pdf->SetFont('Times', 'B', 15);
             //mencetak setting
-            $pdf->Cell(320, 6, 'DAFTAR SUMBANGAN KOMITE ', 0, 1, 'C');
-            $pdf->Cell(320, 6, 'TAHUN PELAJARAN ' . $tahun, 0, 1, 'C');
-            $pdf->SetFont('Arial', '', 12);
+            $pdf->Cell(320, 6, 'DINAS PENDIDIKAN SUMATERA BARAT', 0, 1, 'C');
+            $pdf->Cell(340, 6, 'UPT SMA NEGERI 1 RAMBATAN ', 0, 1, 'C');
+            $pdf->Cell(340, 6, 'KABUPATEN TANAH DATAR', 0, 1, 'C');
+            $pdf->SetFont('Times', 'BI',8);
+            $pdf->Cell(20, 6, '', 0, 0, 'L');
+            $pdf->Cell(75, 6, 'Alamat: Simpang Gobah Rambatan', 0, 0, 'L');
+            $pdf->Cell(245, 6, 'Kode Pos: 27271', 0, 1, 'R');
+            $pdf->SetFont('Times', '', 12);
+            $pdf->Cell(210, 0, '', 0, 1, 'C');
             $pdf->Cell(340, 1, '', ':', 0, 1, 'C');
-            $pdf->Cell(300, 5, '', 0, 1, 'C');
+            $pdf->Cell(210, 5, '', 0, 1, 'C');
             //Membri spasi kEBawah
-            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->SetFont('Times', 'B', 10);
+            $pdf->Cell(340, 8, 'LAPORAN PEMBAYARAN SUMBANGAN KOMITE' , 0, 1, 'C');
+            $pdf->SetFont('Times', 'B', 10);
             $pdf->Cell(140, 8, 'Kelas : ' . $data_kelas['nama_kelas'], 0, 0, 'L');
             $pdf->Cell(200, 8, 'Jenis Sumbangan : Rutin', 0, 1, 'R');
             $pdf->Cell(7, 8, 'No', 1, 0, 'C');
@@ -834,7 +842,7 @@ class Admin extends CI_Controller
             //     $pdf->Cell(20, 8, $bulan_c, 1, 0, 'C');
             // }
             $pdf->Cell(10, 8, '', 0, 1, 'C');
-            $pdf->SetFont('Arial', '', 8);
+            $pdf->SetFont('Times', '', 8);
             $no = 1;
             $no2 = 1;
             $data_user = $this->model->find_data('tb_data_user', 'id_kelas', $kelas)->result_array();
@@ -864,7 +872,7 @@ class Admin extends CI_Controller
                 $pdf->Cell(10, 6, '', 0, 1, 'C');
                 if ($nomor % 9 == 0) {
 
-                    $pdf->SetFont('Arial', 'B', 10);
+                    $pdf->SetFont('Times', 'B', 10);
                     $pdf->Cell(0, 20, 'Halaman ' . $pdf->PageNo(), 0, 0, 'R');
 
                     $pdf->AddPage();
@@ -878,21 +886,21 @@ class Admin extends CI_Controller
             $pdf->Cell(0, 4, 'Bendahara', 0, 1);
             $pdf->cell(256, 6, '', 0, 0);
             $pdf->ln(18);
-            $pdf->SetFont('Arial', 'BU', 8);
+            $pdf->SetFont('Times', 'BU', 8);
             
             $pdf->cell(70, 6, 'Drs. Khairul Efendi ', 0, 0,'L');
             $pdf->cell(210, 2, '', 0, 0);
             $pdf->Cell(0, 6, 'Yulda,S.Pd', 0, 1);
             
-            $pdf->SetFont('Arial', 'B',8);
+            $pdf->SetFont('Times', 'B',8);
             $pdf->cell(70, 2, 'NIP. 19630720 198803 1 014 ', 0, 0,'L');
             $pdf->cell(210,4, '', 0, 0);
             $pdf->Cell(0, 2, 'NIP. 198106712 200701 2 005', 0, 1);
-            $pdf->SetFont('Arial', '', 8);
+            $pdf->SetFont('Times', '', 8);
             
             $pdf->cell(256, 2, '', 0, 0);
             $pdf->Cell(0, 1, '', 0, 1);
-            //$pdf->SetFont('Arial','I',8);
+            //$pdf->SetFont('Times','I',8);
             $pdf->cell(280, 4, '', 0, 1);
 
             $pdf->Cell(0, 4, 'CATATAN :', 0, 1);
@@ -902,7 +910,7 @@ class Admin extends CI_Controller
                 $pdf->Cell(340, 4, $no3++ . '. ' . $value['keterangan_komite'] . " sumbangan rutin Rp. " . number_format($value['tarif_komite']), 0, 1, '');
             }
 
-            $pdf->SetFont('Arial', 'B', 10);
+            $pdf->SetFont('Times', 'B', 10);
             $pdf->SetY(270);
             $pdf->Cell(0, 9, 'Halaman ' . $pdf->PageNo(), 0, 1, 'R');
 
